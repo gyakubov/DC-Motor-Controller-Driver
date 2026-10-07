@@ -1,0 +1,5 @@
+Sorry for the weak photo folder, it would have been ideal if I had taken more pictures of me making the electronics. I've included a few photos of the Driver, and the completed setup as is currently in my lathe today.
+
+Take note of the INTERFACE PHOTO, basically I'm going directly from the buttons & knob to the 1x9_to_1x9 board via a 9 conductor ribbon cable. The 1x9_to_1x9 board goes from ribbon to male pin header which connects to the female header on the controller. All of the switch debouncing on the momentary push buttons is done on the controller board, so no other components are needed from the buttons / knob to the controller.
+
+Also, from the 2x8_to_1x16 photos you can get an idea of how I setup the connectors for the LCD to Controller. Basically 2x8_to_1x16 board, which has two rows of 1x8 male pin headers, and 16 conductor ribbon cable is soldered directly to the 1x16 pads. The other end of the ribbon cable is soldered to a 1x16_to_1x16 board which has a 1x16 male pin header to connect to the controller.

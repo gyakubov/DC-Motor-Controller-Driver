@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>DC Motor Controller</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Persistent status bar -->
+<header id="statusBar">
+  <span id="wsDot" class="dot offline"></span>
+  <span id="wsText">Connecting...</span>
+  <span id="modeBadge" class="mode-badge pid">PID CONTROL</span>
+  <span id="uptime">Uptime 00:00:00</span>
+  <div id="faultBanner" class="fault-banner hidden"></div>
+  <button id="clearFaultBtn" class="btn secondary clear-fault hidden">Clear fault</button>
+</header>
+
+<main>
+
+  <!-- RUN TAB -->
+  <section class="tab-panel" data-panel="run">
+    <div class="run-grid">
+
+      <div class="run-left">
+        <div class="gauge-wrap">
+          <div id="gauge" class="gauge"></div>
+          <div class="gauge-center">
+            <div id="rpmActual" class="rpm-actual">0</div>
+            <div class="rpm-label">RPM actual</div>
+          </div>
+        </div>
+
+        <div class="sub-readout">
+          <span>Target: <b id="rpmTargetReadout">0</b> rpm</span>
+          <span>Duty: <b id="dutyReadout">0</b>%</span>
+        </div>
+
+        <div class="direction-row">
+          <span class="dir-label">FWD</span>
+          <label class="switch">
+            <input type="checkbox" id="dirToggle">
+            <span class="slider-track"></span>
+          </label>
+          <span class="dir-label">REV</span>
+          <span id="dirLockHint" class="hint hidden">Stop motor to change direction</span>
+        </div>
+
+        <div class="mode-row">
+          <span class="mode-row-label">Control mode</span>
+          <div id="modeToggle" class="segmented">
+            <button class="seg-btn active" data-mode="pid">PID</button>
+            <button class="seg-btn" data-mode="direct">DIRECT</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="run-right">
+        <canvas id="chart" width="600" height="140"></canvas>
+
+        <div class="setpoint-row">
+          <button class="step-btn" data-step="-100">-100</button>
+          <button class="step-btn" data-step="-10">-10</button>
+          <input type="range" id="rpmSlider" min="0" max="3000" step="10" value="0">
+          <button class="step-btn" data-step="10">+10</button>
+          <button class="step-btn" data-step="100">+100</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TUNING TAB -->
+  <section class="tab-panel hidden" data-panel="tuning">
+    <h2>PID Tuning</h2>
+    <div class="tuning-grid">
+      <div class="gain-card">
+        <label>Kp</label>
+        <div class="stepper">
+          <button data-gain="kp" data-delta="-0.1">-</button>
+          <input type="number" id="kpVal" value="2.0" step="0.1">
+          <button data-gain="kp" data-delta="0.1">+</button>
+        </div>
+      </div>
+      <div class="gain-card">
+        <label>Ki</label>
+        <div class="stepper">
+          <button data-gain="ki" data-delta="-0.01">-</button>
+          <input type="number" id="kiVal" value="0.50" step="0.01">
+          <button data-gain="ki" data-delta="0.01">+</button>
+        </div>
+      </div>
+      <div class="gain-card">
+        <label>Kd</label>
+        <div class="stepper">
+          <button data-gain="kd" data-delta="-0.1">-</button>
+          <input type="number" id="kdVal" value="0.10" step="0.1">
+          <button data-gain="kd" data-delta="0.1">+</button>
+        </div>
+      </div>
+      <div class="gain-card">
+        <label>Feed-fwd</label>
+        <div class="stepper">
+          <button data-gain="ff" data-delta="-0.01">-</button>
+          <input type="number" id="ffVal" value="0.00" step="0.01">
+          <button data-gain="ff" data-delta="0.01">+</button>
+        </div>
+      </div>
+    </div>
+    <canvas id="chart2" width="900" height="160"></canvas>
+    <div class="tuning-actions">
+      <button id="applyGains" class="btn secondary">Apply (live test)</button>
+      <button id="saveGains" class="btn primary">Save to flash</button>
+    </div>
+  </section>
+
+  <!-- DIAGNOSTICS TAB -->
+  <section class="tab-panel hidden" data-panel="diag">
+    <h2>Diagnostics</h2>
+    <div class="diag-grid">
+      <div class="diag-card"><span>Encoder pulses/s</span><b id="diagPulses">0</b></div>
+      <div class="diag-card"><span>Measured current</span><b id="diagCurrent">0.0 A</b></div>
+      <div class="diag-card"><span>MOSFET temp</span><b id="diagTemp">25.0 &deg;C</b></div>
+      <div class="diag-card"><span>Control task load</span><b id="diagLoad">—</b></div>
+      <div class="diag-card"><span>Free heap</span><b id="diagHeap">—</b></div>
+    </div>
+
+    <h3>Current &amp; Temperature</h3>
+    <div class="chart-legend">
+      <span><i class="swatch current"></i>Current (A)</span>
+      <span><i class="swatch temp"></i>MOSFET Temp (&deg;C)</span>
+    </div>
+    <canvas id="chart3" width="900" height="110"></canvas>
+
+    <h3>Event log</h3>
+    <ul id="eventLog" class="event-log"></ul>
+  </section>
+
+  <!-- SETTINGS TAB -->
+  <section class="tab-panel hidden" data-panel="settings">
+    <h2>Settings</h2>
+    <div class="settings-grid">
+      <label>Max RPM <input type="number" id="setMaxRpm" value="3000"></label>
+      <label>Min RPM <input type="number" id="setMinRpm" value="50"></label>
+      <label>Max Duty % <input type="number" id="setMaxDuty" value="90"></label>
+      <label>Encoder resolution <input type="number" id="setEncRes" value="96"></label>
+      <label>WiFi SSID <input type="text" id="setSsid" maxlength="32" placeholder="motor-controller"></label>
+      <label>WiFi Password <input type="password" id="setPass" maxlength="63" placeholder="new password (8+ chars)"></label>
+    </div>
+    <div class="settings-actions">
+      <button id="saveSettings" class="btn primary">Save Settings</button>
+      <button id="restartBtn" class="btn danger">Restart Controller</button>
+    </div>
+    <p class="fw-info" id="fwInfo">Firmware &mdash;</p>
+  </section>
+
+</main>
+
+<!-- Persistent Start/Stop + tab bar -->
+<footer>
+  <button id="startBtn" class="btn big start">START</button>
+  <nav id="tabBar">
+    <button class="tab-btn active" data-tab="run">Run</button>
+    <button class="tab-btn" data-tab="tuning">Tuning</button>
+    <button class="tab-btn" data-tab="diag">Diagnostics</button>
+    <button class="tab-btn" data-tab="settings">Settings</button>
+  </nav>
+  <button id="stopBtn" class="btn big stop">STOP</button>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

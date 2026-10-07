@@ -1,0 +1,1193 @@
+MPLINK 4.40, Linker
+Linker Map File - Created Mon Dec 16 08:34:55 2013
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+               _entry_scn       code   0x000000    program   0x000006
+           .code___init.o       code   0x000006    program   0x000002
+              high_vector       code   0x000008    program   0x000006
+               low_vector       code   0x000018    program   0x000006
+                   .cinit    romdata   0x00001e    program   0x000026
+             .code_main.o       code   0x000044    program   0x001ede
+               .code_UI.o       code   0x001f22    program   0x000cd6
+                     PROG       code   0x002bf8    program   0x000686
+              .code_PID.o       code   0x00327e    program   0x000638
+              .code_LCD.o       code   0x0038b6    program   0x0001f8
+                   STDLIB       code   0x003aae    program   0x000134
+             .stringtable    romdata   0x003be2    program   0x00010f
+           .romdata_PID.o    romdata   0x003cf1    program   0x000000
+        .idata_EEPROM.o_i    romdata   0x003cf1    program   0x000000
+        .romdata_EEPROM.o    romdata   0x003cf1    program   0x000000
+            .romdata_UI.o    romdata   0x003cf1    program   0x000000
+      .idata_fxd2424u.o_i    romdata   0x003cf1    program   0x000000
+      .romdata_fxd2424u.o    romdata   0x003cf1    program   0x000000
+        .idata___init.o_i    romdata   0x003cf1    program   0x000000
+        .romdata___init.o    romdata   0x003cf1    program   0x000000
+         .idata_c018i.o_i    romdata   0x003cf1    program   0x000000
+         .romdata_c018i.o    romdata   0x003cf1    program   0x000000
+         .idata_Delay.o_i    romdata   0x003cf1    program   0x000000
+         .romdata_Delay.o    romdata   0x003cf1    program   0x000000
+           .idata_LCD.o_i    romdata   0x003cf1    program   0x000000
+           .romdata_LCD.o    romdata   0x003cf1    program   0x000000
+          .romdata_main.o    romdata   0x003cf1    program   0x000000
+               _cinit_scn       code   0x003cf2    program   0x00009e
+            .code_c018i.o       code   0x003cf2    program   0x000000
+            .code_Delay.o       code   0x003d90    program   0x000060
+           .code_EEPROM.o       code   0x003df0    program   0x000054
+         .code_fxd2424u.o       code   0x003e44    program   0x00003a
+                    .code       code   0x003e7e    program   0x000020
+             _startup_scn       code   0x003e9e    program   0x00001c
+          .idata_main.o_i    romdata   0x003eba    program   0x000042
+            .idata_UI.o_i    romdata   0x003efc    program   0x000047
+           .idata_PID.o_i    romdata   0x003f43    program   0x00002d
+    .config_300001_main.o    romdata   0x300001    program   0x000001
+    .config_300003_main.o    romdata   0x300003    program   0x000001
+    .config_300005_main.o    romdata   0x300005    program   0x000001
+    .config_300006_main.o    romdata   0x300006    program   0x000001
+                MATH_DATA      udata   0x000000       data   0x000014
+                 .tmpdata      udata   0x000014       data   0x000013
+              LOW_ISR_tmp      udata   0x000027       data   0x000002
+             HIGH_ISR_tmp      udata   0x000029       data   0x000002
+              .idata_UI.o      idata   0x000060       data   0x000047
+            .idata_main.o      idata   0x0000a7       data   0x000042
+           .udata_c018i.o      udata   0x0000e9       data   0x00000a
+          .idata___init.o      idata   0x0000f3       data   0x000000
+          .udata___init.o      udata   0x0000f3       data   0x000000
+        .idata_fxd2424u.o      idata   0x0000f3       data   0x000000
+        .udata_fxd2424u.o      udata   0x0000f3       data   0x000000
+              .udata_UI.o      udata   0x0000f3       data   0x000000
+          .idata_EEPROM.o      idata   0x0000f3       data   0x000000
+          .udata_EEPROM.o      udata   0x0000f3       data   0x000000
+             .udata_PID.o      udata   0x0000f3       data   0x000000
+            .udata_main.o      udata   0x0000f3       data   0x000000
+             .idata_LCD.o      idata   0x0000f3       data   0x000000
+             .udata_LCD.o      udata   0x0000f3       data   0x000000
+           .idata_Delay.o      idata   0x0000f3       data   0x000000
+           .udata_Delay.o      udata   0x0000f3       data   0x000000
+           .idata_c018i.o      idata   0x0000f3       data   0x000000
+                   .stack      udata   0x000100       data   0x000100
+             .idata_PID.o      idata   0x000200       data   0x00002d
+              SFR_BANKED0      udata   0x000f53       data   0x00000d
+            SFR_UNBANKED0      udata   0x000f60       data   0x0000a0
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x00000d      
+                            0x000018    0x003cf0      
+                            0x003cf2    0x003f6f      
+                            0x300001    0x300001      
+                            0x300003    0x300003      
+                            0x300005    0x300006      
+            16233 out of 16664 program addresses used, program memory utilization is 97%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   D2424S   0x002f1c    program     static C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                D2424SNEG   0x002f2a    program     static C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                 D2424SOK   0x002f26    program     static C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                  D2424SX   0x002f42    program     static C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                  DA2424S   0x002f08    program     static C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                  DelayMs   0x003d90    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\Delay.c
+                   DelayS   0x003dc6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\Delay.c
+              EEPROM_Read   0x003df0    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\EEPROM.c
+             EEPROM_Write   0x003e0e    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\EEPROM.c
+                 FLO0832S   0x002bfc    program     extern C:\MCC18\v3_39\src\traditional\math\cast08FP.asm
+                 FLO0832U   0x002bf8    program     extern C:\MCC18\v3_39\src\traditional\math\cast08FP.asm
+                 FLO1632S   0x002c1e    program     extern C:\MCC18\v3_39\src\traditional\math\cast16FP.asm
+                 FLO1632U   0x002c1a    program     extern C:\MCC18\v3_39\src\traditional\math\cast16FP.asm
+                    FPA32   0x002c46    program     extern C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                    FPD32   0x002d72    program     extern C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                    FPM32   0x002e18    program     extern C:\MCC18\v3_39\src\traditional\math\mulFP.asm
+                    FPS32   0x002c44    program     extern C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                 FXD2424S   0x002ef2    program     extern C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                 FXD2424U   0x003e44    program     extern C:\MCC18\v3_39\src\traditional\math\fxd2424u.c
+                 FXM1616S   0x002f4c    program     extern C:\MCC18\v3_39\src\traditional\math\fxm1616s.asm
+                 FXM2424U   0x002fa6    program     extern C:\MCC18\v3_39\src\traditional\math\fxm2424u.asm
+                 HIGH_ISR   0x0001ee    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  INT3216   0x003038    program     extern C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                  LOW_ISR   0x000044    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  OneByte   0x003bd0    program     static C:\MCC18\v3_39\src\traditional\stdclib\itobcd.asm
+                ProcLower   0x003b84    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                ProcUpper   0x003b7a    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                  TAEQB32   0x003096    program     extern C:\MCC18\v3_39\src\traditional\math\eqFP.asm
+                  TAGTB32   0x0030a4    program     extern C:\MCC18\v3_39\src\traditional\math\gtFP.asm
+                  TALTB32   0x0030b6    program     extern C:\MCC18\v3_39\src\traditional\math\ltFP.asm
+               TSIGN1616A   0x002f98    program     static C:\MCC18\v3_39\src\traditional\math\fxm1616s.asm
+                 TstLower   0x003b6e    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                 TstUpper   0x003b68    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+              __FpCompare   0x0030c8    program     extern C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                 __FpExit   0x00317e    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+                 __FpPack   0x0031aa    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+            __FpReturnNaN   0x003172    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+         __FpReturnNegInf   0x003184    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+        __FpReturnNegZero   0x00319c    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+         __FpReturnPosInf   0x00318a    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+        __FpReturnPosZero   0x0031a4    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+        __FpReturnSignInf   0x003180    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+       __FpReturnSignZero   0x003198    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+              __FpReturnW   0x003202    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+              __FpUnPackA   0x003222    program     extern C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+              __FpUnPackB   0x003252    program     extern C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+       ___return_lbl00000   0x00000c    program     static                          
+       ___return_lbl00000   0x003e7c    program     static                          
+       ___return_lbl00000   0x000004    program     static                          
+       ___return_lbl00001   0x003eb8    program     static                          
+       ___return_lbl00001   0x00001c    program     static                          
+       ___return_lbl00002   0x003d8e    program     static                          
+               __config_0   0x300001    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __config_1   0x300003    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __config_2   0x300005    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __config_3   0x300006    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                   __init   0x000006    program     extern C:\MCC18\v3_39\src\traditional\stdclib\__init.c
+               __string_1   0x003ce3    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+              __string_10   0x003ca1    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_11   0x003c9f    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_12   0x003c98    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_13   0x003c8a    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_14   0x003c83    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_15   0x003c6a    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_16   0x003c5d    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_17   0x003c56    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_18   0x003c4e    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_19   0x003c44    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_2   0x003ccc    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+              __string_20   0x003c3e    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_21   0x003c39    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_22   0x003c34    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_23   0x003c2f    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_24   0x003c29    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_25   0x003c25    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_26   0x003c23    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_27   0x003c21    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_28   0x003c1c    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_29   0x003c17    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_30   0x003c14    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_31   0x003c0b    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_32   0x003c03    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_33   0x003bf3    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_34   0x003bef    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_35   0x003beb    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_36   0x003be7    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_37   0x003be2    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_5   0x003cc6    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_6   0x003cbd    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_7   0x003cb6    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_8   0x003cae    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_9   0x003ca8    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __tmplbl_43   0x001bf0    program     static                          
+              __tmplbl_44   0x001a3c    program     static                          
+              __tmplbl_46   0x001dae    program     static                          
+              __tmplbl_49   0x001dae    program     static                          
+              __tmplbl_50   0x001dae    program     static                          
+              __tmplbl_51   0x001dae    program     static                          
+              __tmplbl_53   0x001cfc    program     static                          
+            __zero_memory   0x003e7e    program     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                _do_cinit   0x003cf2    program     extern C:\MCC18\v3_39\src\traditional\startup\c018i.c
+                   _entry   0x000000    program     extern C:\MCC18\v3_39\src\traditional\startup\c018i.c
+                   _false   0x003e78    program     static                          
+                 _startup   0x003e9e    program     extern C:\MCC18\v3_39\src\traditional\startup\c018i.c
+                compare_l   0x003e94    program     static C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                copy_loop   0x003d64    program     static                          
+            copy_one_byte   0x003d6a    program     static                          
+                     done   0x003d8e    program     static                          
+             done_copying   0x003d78    program     static                          
+                     ftoa   0x0026ec    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+         get_button_state   0x002016    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+       get_menu_direction   0x00211c    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                goto_menu   0x001f22    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+           high_interrupt   0x000008    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                   itoBCD   0x003b8e    program     extern C:\MCC18\v3_39\src\traditional\stdclib\itobcd.asm
+                     itoa   0x003aae    program     extern C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                 jANotInf   0x002e36    program     static C:\MCC18\v3_39\src\traditional\math\mulFP.asm
+                 jANotInf   0x002c6e    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                 jANotInf   0x002d90    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                 jANotNeg   0x002d02    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                jANotZero   0x002da4    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+              jAandWsetup   0x002cd2    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                  jAisNeg   0x003144    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                 jAltBexp   0x002cc0    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                jBANotInf   0x002c64    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                 jBNotInf   0x002c7c    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+              jBothFinite   0x002e44    program     static C:\MCC18\v3_39\src\traditional\math\mulFP.asm
+             jBothNotZero   0x002e50    program     static C:\MCC18\v3_39\src\traditional\math\mulFP.asm
+             jBothNotZero   0x0030e6    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+            jDifOrPosSign   0x002c90    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                     jDo1   0x003b34    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                     jDo2   0x003b30    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                     jDo3   0x003b2c    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                     jDo4   0x003b28    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                     jDo5   0x003b24    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                      jEQ   0x003102    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                     jEnd   0x003bcc    program     static C:\MCC18\v3_39\src\traditional\stdclib\itobcd.asm
+                    jExch   0x00310e    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                    jExit   0x003094    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                   jExpEQ   0x003154    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                   jFinal   0x003138    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+               jFinalSign   0x002d6a    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                jHaveZero   0x002e4c    program     static C:\MCC18\v3_39\src\traditional\math\mulFP.asm
+                jI2F08Beg   0x002c06    program     static C:\MCC18\v3_39\src\traditional\math\cast08FP.asm
+                jI2F16Beg   0x002c2e    program     static C:\MCC18\v3_39\src\traditional\math\cast16FP.asm
+                    jLoop   0x002dcc    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                    jLoop   0x003074    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                    jLoop   0x003ba6    program     static C:\MCC18\v3_39\src\traditional\stdclib\itobcd.asm
+                jLoopExit   0x003084    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                     jMax   0x003048    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                  jMaxNeg   0x003056    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                  jMaxPos   0x00304c    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                      jNE   0x003106    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                    jNext   0x002df2    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                jNoAdjust   0x002df0    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                  jNoExch   0x00312e    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+             jNotBothZero   0x002c94    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                  jNotInf   0x003064    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                  jPkLoop   0x0031b8    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+             jPkRoundDone   0x003202    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+               jPkRoundIt   0x0031ea    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+             jPkShiftDone   0x0031d4    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+           jReturnPosInf0   0x00318e    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+                  jRotate   0x003160    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                   jShift   0x00314a    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+               jShiftDone   0x002d2a    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+               jShiftLoop   0x002d1c    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                jSignDone   0x002d5a    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+              jSignedZero   0x002d9a    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                 jSignsEQ   0x0030ea    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                jTstLowZ1   0x003b78    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                jTstSign1   0x003ada    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                  jUnpkA1   0x00322c    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                  jUnpkA2   0x003244    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                 jUnpkANZ   0x00323a    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                  jUnpkB1   0x00325c    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                  jUnpkB2   0x003274    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                 jUnpkBNZ   0x00326a    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                 jUnpkNaN   0x00324e    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                 jWNotNeg   0x002d16    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                    jZero   0x00305e    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+               jZero1and2   0x003192    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+            lcd_character   0x00398c    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                lcd_clear   0x0038f2    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                 lcd_init   0x003a20    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                lcd_line1   0x0039a8    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                lcd_line2   0x0039c6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                lcd_line3   0x0039e4    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                lcd_line4   0x003a02    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+               lcd_string   0x003908    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                lcd_write   0x0038b6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                     loop   0x003e50    program     static                          
+                     loop   0x003eae    program     static                          
+                   loop_h   0x003e8c    program     static C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   loop_l   0x003e96    program     static C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+            low_interrupt   0x000018    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                     main   0x0002e8    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                      pid   0x003374    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                  pid_abs   0x0032aa    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                pid_reset   0x00327e    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+           process_button   0x00226a    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+          process_buttons   0x002122    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+      process_menu_action   0x00236c    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+            read_settings   0x000bae    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               render_lcd   0x002406    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+              render_menu   0x0010a0    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+            save_settings   0x000a9a    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              scopy_right   0x002448    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                 set_duty   0x000a4a    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                    sjoin   0x002564    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                 sjoinrom   0x002626    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                     test   0x003d0c    program     static                          
+                     tick   0x0005b6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  ui_init   0x001fd6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+               ui_process   0x001f3e    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                update_ks   0x0008ac    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+         update_menu_data   0x000cdc    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               update_rpm   0x000496    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+        update_rpm_target   0x0003d6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               zero_block   0x003e8c    program     static C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ADCON0   0x000fc2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               ADCON0bits   0x000fc2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ADCON1   0x000fc1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               ADCON1bits   0x000fc1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ADCON2   0x000fc0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               ADCON2bits   0x000fc0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    ADRES   0x000fc3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ADRESH   0x000fc4       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ADRESL   0x000fc3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    ANSEL   0x000f7e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ANSELH   0x000f7f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               ANSELHbits   0x000f7f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                ANSELbits   0x000f7e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  BAUDCON   0x000fb8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              BAUDCONbits   0x000fb8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  BAUDCTL   0x000fb8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              BAUDCTLbits   0x000fb8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      BSR   0x000fe0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  CCP1CON   0x000fbd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              CCP1CONbits   0x000fbd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    CCPR1   0x000fbe       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   CCPR1H   0x000fbf       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   CCPR1L   0x000fbe       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  CM1CON0   0x000f6d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              CM1CON0bits   0x000f6d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  CM2CON0   0x000f6b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              CM2CON0bits   0x000f6b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  CM2CON1   0x000f6c       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              CM2CON1bits   0x000f6c       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+          CURRENT_LIMITED   0x0000d0       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+   CURRENT_LIMIT_DETECTED   0x0000d3       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+CURRENT_LIMIT_LAST_DETECTED   0x0000d1       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                     DDRA   0x000f92       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 DDRAbits   0x000f92       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     DDRB   0x000f93       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 DDRBbits   0x000f93       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     DDRC   0x000f94       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 DDRCbits   0x000f94       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  ECCP1AS   0x000fb6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              ECCP1ASbits   0x000fb6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    EEADR   0x000fa9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                EEADRbits   0x000fa9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   EECON1   0x000fa6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               EECON1bits   0x000fa6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   EECON2   0x000fa7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   EEDATA   0x000fa8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+       ENCODER_RESOLUTION   0x0000d6       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                     FSR0   0x000fe9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR0H   0x000fea       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR0L   0x000fe9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     FSR1   0x000fe1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR1H   0x000fe2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR1L   0x000fe1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     FSR2   0x000fd9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR2H   0x000fda       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR2L   0x000fd9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+          INDEXER_BRAKING   0x0000e7       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+             INDEXER_DUTY   0x0000e4       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+        INDEXER_DUTY_LOCK   0x0000e3       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+        INDEXER_LAST_TACH   0x0000e2       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               INDEXER_ON   0x0000e6       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               INDEXER_TX   0x0000e5       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                    INDF0   0x000fef       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    INDF1   0x000fe7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    INDF2   0x000fdf       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     INIT   0x0000a7       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                   INTCON   0x000ff2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  INTCON2   0x000ff1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              INTCON2bits   0x000ff1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  INTCON3   0x000ff0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              INTCON3bits   0x000ff0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               INTCONbits   0x000ff2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     IOCA   0x000f79       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 IOCAbits   0x000f79       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     IOCB   0x000f7a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 IOCBbits   0x000f7a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               IOC_states   0x0000af       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                     IPR1   0x000f9f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 IPR1bits   0x000f9f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     IPR2   0x000fa2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 IPR2bits   0x000fa2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     LATA   0x000f89       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 LATAbits   0x000f89       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     LATB   0x000f8a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 LATBbits   0x000f8a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     LATC   0x000f8b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 LATCbits   0x000f8b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 MAX_DUTY   0x0000c9       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  MAX_RPM   0x0000cb       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  MIN_RPM   0x0000cd       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                   OSCCON   0x000fd3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  OSCCON2   0x000fd2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              OSCCON2bits   0x000fd2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               OSCCONbits   0x000fd3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  OSCTUNE   0x000f9b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              OSCTUNEbits   0x000f9b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   PAUSED   0x0000cf       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                       PC   0x000ff9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      PCL   0x000ff9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   PCLATH   0x000ffa       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   PCLATU   0x000ffb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+           PID_derivative   0x00021c       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+     PID_derivative_delay   0x00021a       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+      PID_derivative_time   0x00021b       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                   PID_ff   0x000200       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+             PID_integral   0x000224       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+       PID_integral_clamp   0x000222       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+       PID_integral_delay   0x000220       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+     PID_integral_limited   0x00022c       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+      PID_integral_sample   0x000228       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+        PID_integral_time   0x000221       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                   PID_kd   0x00020c       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                   PID_ki   0x000208       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                   PID_kp   0x000204       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+           PID_last_error   0x000216       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                  PID_out   0x000210       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+            PID_out_clamp   0x000214       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                     PIE1   0x000f9d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 PIE1bits   0x000f9d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     PIE2   0x000fa0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 PIE2bits   0x000fa0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     PIR1   0x000f9e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 PIR1bits   0x000f9e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     PIR2   0x000fa1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 PIR2bits   0x000fa1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   PLUSW0   0x000feb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   PLUSW1   0x000fe3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   PLUSW2   0x000fdb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    PORTA   0x000f80       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                PORTAbits   0x000f80       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    PORTB   0x000f81       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                PORTBbits   0x000f81       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    PORTC   0x000f82       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                PORTCbits   0x000f82       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTDEC0   0x000fed       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTDEC1   0x000fe5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTDEC2   0x000fdd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTINC0   0x000fee       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTINC1   0x000fe6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTINC2   0x000fde       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      PR2   0x000fcb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  PREINC0   0x000fec       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  PREINC1   0x000fe4       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  PREINC2   0x000fdc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     PROD   0x000ff3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    PRODH   0x000ff4       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    PRODL   0x000ff3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  PSTRCON   0x000fb9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              PSTRCONbits   0x000fb9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  PWM1CON   0x000fb7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              PWM1CONbits   0x000fb7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     RCON   0x000fd0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 RCONbits   0x000fd0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    RCREG   0x000fae       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    RCSTA   0x000fab       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                RCSTAbits   0x000fab       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  REFCON0   0x000fba       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              REFCON0bits   0x000fba       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  REFCON1   0x000fbb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              REFCON1bits   0x000fbb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  REFCON2   0x000fbc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              REFCON2bits   0x000fbc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     SIGN   0x000000       data     extern C:\MCC18\v3_39\src\traditional\math\cmath18.asm
+                   SLRCON   0x000f76       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               SLRCONbits   0x000f76       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    SPBRG   0x000faf       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SPBRGH   0x000fb0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SRCON0   0x000f68       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               SRCON0bits   0x000f68       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SRCON1   0x000f69       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               SRCON1bits   0x000f69       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SSPADD   0x000fc8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SSPBUF   0x000fc9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  SSPCON1   0x000fc6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              SSPCON1bits   0x000fc6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  SSPCON2   0x000fc5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              SSPCON2bits   0x000fc5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SSPMSK   0x000f6f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               SSPMSKbits   0x000f6f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  SSPSTAT   0x000fc7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              SSPSTATbits   0x000fc7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   STATUS   0x000fd8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               STATUSbits   0x000fd8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   STKPTR   0x000ffc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               STKPTRbits   0x000ffc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    T0CON   0x000fd5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                T0CONbits   0x000fd5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    T1CON   0x000fcd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                T1CONbits   0x000fcd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    T2CON   0x000fca       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                T2CONbits   0x000fca       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    T3CON   0x000fb1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                T3CONbits   0x000fb1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   TABLAT   0x000ff5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   TBLPTR   0x000ff6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  TBLPTRH   0x000ff7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  TBLPTRL   0x000ff6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  TBLPTRU   0x000ff8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR0H   0x000fd7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR0L   0x000fd6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR1H   0x000fcf       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR1L   0x000fce       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     TMR2   0x000fcc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR3H   0x000fb3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR3L   0x000fb2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      TOS   0x000ffd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     TOSH   0x000ffe       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     TOSL   0x000ffd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     TOSU   0x000fff       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TRISA   0x000f92       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                TRISAbits   0x000f92       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TRISB   0x000f93       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                TRISBbits   0x000f93       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TRISC   0x000f94       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                TRISCbits   0x000f94       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TXREG   0x000fad       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TXSTA   0x000fac       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                TXSTAbits   0x000fac       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    UADDR   0x000f5c       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                UADDRbits   0x000f5c       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UCFG   0x000f61       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UCFGbits   0x000f61       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UCON   0x000f64       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UCONbits   0x000f64       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEIE   0x000f5b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEIEbits   0x000f5b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEIR   0x000f5f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEIRbits   0x000f5f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP0   0x000f53       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP0bits   0x000f53       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP1   0x000f54       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP1bits   0x000f54       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP2   0x000f55       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP2bits   0x000f55       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP3   0x000f56       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP3bits   0x000f56       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP4   0x000f57       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP4bits   0x000f57       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP5   0x000f58       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP5bits   0x000f58       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP6   0x000f59       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP6bits   0x000f59       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP7   0x000f5a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP7bits   0x000f5a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    UFRMH   0x000f5e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                UFRMHbits   0x000f5e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    UFRML   0x000f5d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                UFRMLbits   0x000f5d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      UIE   0x000f60       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  UIEbits   0x000f60       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      UIR   0x000f62       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  UIRbits   0x000f62       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    USTAT   0x000f63       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                USTATbits   0x000f63       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 VREFCON0   0x000fba       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+             VREFCON0bits   0x000fba       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 VREFCON1   0x000fbb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+             VREFCON1bits   0x000fbb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 VREFCON2   0x000fbc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+             VREFCON2bits   0x000fbc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                        W   0x000fe8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   WDTCON   0x000fd1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               WDTCONbits   0x000fd1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     WPUA   0x000f77       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 WPUAbits   0x000f77       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     WPUB   0x000f78       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 WPUBbits   0x000f78       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     WREG   0x000fe8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 __AARGB0   0x000009       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB1   0x000008       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB2   0x000007       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB3   0x000006       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB4   0x000005       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB5   0x000004       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB6   0x000003       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB7   0x000002       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                   __AEXP   0x00000a       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __BARGB0   0x00000e       data     extern C:\MCC18\v3_39\src\traditional\math\barg.asm
+                 __BARGB1   0x00000d       data     extern C:\MCC18\v3_39\src\traditional\math\barg.asm
+                 __BARGB2   0x00000c       data     extern C:\MCC18\v3_39\src\traditional\math\barg.asm
+                 __BARGB3   0x00000b       data     extern C:\MCC18\v3_39\src\traditional\math\barg.asm
+                   __BEXP   0x00000f       data     extern C:\MCC18\v3_39\src\traditional\math\barg.asm
+                __FPFLAGS   0x000001       data     extern C:\MCC18\v3_39\src\traditional\math\cmath18.asm
+            __FPFLAGSbits   0x000001       data     extern C:\MCC18\v3_39\src\traditional\math\cmath18.asm
+                  __REMB0   0x000005       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                  __REMB1   0x000004       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                  __REMB2   0x000003       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                  __REMB3   0x000002       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                   __TEMP   0x000013       data     extern C:\MCC18\v3_39\src\traditional\math\temparg.asm
+                 __TEMPB0   0x000013       data     extern C:\MCC18\v3_39\src\traditional\math\temparg.asm
+                 __TEMPB1   0x000012       data     extern C:\MCC18\v3_39\src\traditional\math\temparg.asm
+                 __TEMPB2   0x000011       data     extern C:\MCC18\v3_39\src\traditional\math\temparg.asm
+                 __TEMPB3   0x000010       data     extern C:\MCC18\v3_39\src\traditional\math\temparg.asm
+                  __tmp_0   0x000014       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                  __tmp_0   0x000014       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  __tmp_0   0x000014       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                  __tmp_1   0x000027       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  __tmp_2   0x000029       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                      buf   0x000060       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+            button_states   0x000097       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                curr_byte   0x0000ec       data     static C:\MCC18\v3_39\src\traditional\startup\c018i.c
+               curr_entry   0x0000ee       data     static C:\MCC18\v3_39\src\traditional\startup\c018i.c
+current_limit_count_sample   0x0000d5       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                 data_ptr   0x0000f0       data     static C:\MCC18\v3_39\src\traditional\startup\c018i.c
+                  do_tick   0x0000a8       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+            encoder_count   0x0000df       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+encoder_count_last_sample   0x0000dd       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+     encoder_count_sample   0x0000db       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+   encoder_count_setpoint   0x0000d7       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                    gains   0x0000b3       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                last_duty   0x0000c1       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                 max_menu   0x0000a0       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+             max_sub_menu   0x0000a2       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                 menu_dir   0x0000a1       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                  on_menu   0x000092       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+              on_sub_menu   0x000093       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                     prom   0x0000e9       data     static C:\MCC18\v3_39\src\traditional\startup\c018i.c
+               rpm_actual   0x0000bb       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                rpm_error   0x0000c3       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               rpm_target   0x0000bd       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+             startup_duty   0x0000bf       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                    ticks   0x0000a9       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               update_lcd   0x0000a6       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+              update_menu   0x000094       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+         update_menu_item   0x000095       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+         update_rpm_value   0x0000c7       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+          update_settings   0x0000e8       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   _entry   0x000000    program     extern C:\MCC18\v3_39\src\traditional\startup\c018i.c
+       ___return_lbl00000   0x000004    program     static                          
+                   __init   0x000006    program     extern C:\MCC18\v3_39\src\traditional\stdclib\__init.c
+           high_interrupt   0x000008    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+       ___return_lbl00000   0x00000c    program     static                          
+            low_interrupt   0x000018    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+       ___return_lbl00001   0x00001c    program     static                          
+                  LOW_ISR   0x000044    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                 HIGH_ISR   0x0001ee    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                     main   0x0002e8    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+        update_rpm_target   0x0003d6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               update_rpm   0x000496    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                     tick   0x0005b6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                update_ks   0x0008ac    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                 set_duty   0x000a4a    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+            save_settings   0x000a9a    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+            read_settings   0x000bae    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+         update_menu_data   0x000cdc    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              render_menu   0x0010a0    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __tmplbl_44   0x001a3c    program     static                          
+              __tmplbl_43   0x001bf0    program     static                          
+              __tmplbl_53   0x001cfc    program     static                          
+              __tmplbl_49   0x001dae    program     static                          
+              __tmplbl_50   0x001dae    program     static                          
+              __tmplbl_51   0x001dae    program     static                          
+              __tmplbl_46   0x001dae    program     static                          
+                goto_menu   0x001f22    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+               ui_process   0x001f3e    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                  ui_init   0x001fd6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+         get_button_state   0x002016    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+       get_menu_direction   0x00211c    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+          process_buttons   0x002122    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+           process_button   0x00226a    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+      process_menu_action   0x00236c    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+               render_lcd   0x002406    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+              scopy_right   0x002448    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                    sjoin   0x002564    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                 sjoinrom   0x002626    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                     ftoa   0x0026ec    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                 FLO0832U   0x002bf8    program     extern C:\MCC18\v3_39\src\traditional\math\cast08FP.asm
+                 FLO0832S   0x002bfc    program     extern C:\MCC18\v3_39\src\traditional\math\cast08FP.asm
+                jI2F08Beg   0x002c06    program     static C:\MCC18\v3_39\src\traditional\math\cast08FP.asm
+                 FLO1632U   0x002c1a    program     extern C:\MCC18\v3_39\src\traditional\math\cast16FP.asm
+                 FLO1632S   0x002c1e    program     extern C:\MCC18\v3_39\src\traditional\math\cast16FP.asm
+                jI2F16Beg   0x002c2e    program     static C:\MCC18\v3_39\src\traditional\math\cast16FP.asm
+                    FPS32   0x002c44    program     extern C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                    FPA32   0x002c46    program     extern C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                jBANotInf   0x002c64    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                 jANotInf   0x002c6e    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                 jBNotInf   0x002c7c    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+            jDifOrPosSign   0x002c90    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+             jNotBothZero   0x002c94    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                 jAltBexp   0x002cc0    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+              jAandWsetup   0x002cd2    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                 jANotNeg   0x002d02    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                 jWNotNeg   0x002d16    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+               jShiftLoop   0x002d1c    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+               jShiftDone   0x002d2a    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                jSignDone   0x002d5a    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+               jFinalSign   0x002d6a    program     static C:\MCC18\v3_39\src\traditional\math\addFP.asm
+                    FPD32   0x002d72    program     extern C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                 jANotInf   0x002d90    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+              jSignedZero   0x002d9a    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                jANotZero   0x002da4    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                    jLoop   0x002dcc    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                jNoAdjust   0x002df0    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                    jNext   0x002df2    program     static C:\MCC18\v3_39\src\traditional\math\divFP.asm
+                    FPM32   0x002e18    program     extern C:\MCC18\v3_39\src\traditional\math\mulFP.asm
+                 jANotInf   0x002e36    program     static C:\MCC18\v3_39\src\traditional\math\mulFP.asm
+              jBothFinite   0x002e44    program     static C:\MCC18\v3_39\src\traditional\math\mulFP.asm
+                jHaveZero   0x002e4c    program     static C:\MCC18\v3_39\src\traditional\math\mulFP.asm
+             jBothNotZero   0x002e50    program     static C:\MCC18\v3_39\src\traditional\math\mulFP.asm
+                 FXD2424S   0x002ef2    program     extern C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                  DA2424S   0x002f08    program     static C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                   D2424S   0x002f1c    program     static C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                 D2424SOK   0x002f26    program     static C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                D2424SNEG   0x002f2a    program     static C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                  D2424SX   0x002f42    program     static C:\MCC18\v3_39\src\traditional\math\fxd2424s.asm
+                 FXM1616S   0x002f4c    program     extern C:\MCC18\v3_39\src\traditional\math\fxm1616s.asm
+               TSIGN1616A   0x002f98    program     static C:\MCC18\v3_39\src\traditional\math\fxm1616s.asm
+                 FXM2424U   0x002fa6    program     extern C:\MCC18\v3_39\src\traditional\math\fxm2424u.asm
+                  INT3216   0x003038    program     extern C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                     jMax   0x003048    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                  jMaxPos   0x00304c    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                  jMaxNeg   0x003056    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                    jZero   0x00305e    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                  jNotInf   0x003064    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                    jLoop   0x003074    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                jLoopExit   0x003084    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                    jExit   0x003094    program     static C:\MCC18\v3_39\src\traditional\math\castFP16.asm
+                  TAEQB32   0x003096    program     extern C:\MCC18\v3_39\src\traditional\math\eqFP.asm
+                  TAGTB32   0x0030a4    program     extern C:\MCC18\v3_39\src\traditional\math\gtFP.asm
+                  TALTB32   0x0030b6    program     extern C:\MCC18\v3_39\src\traditional\math\ltFP.asm
+              __FpCompare   0x0030c8    program     extern C:\MCC18\v3_39\src\traditional\math\compFP.asm
+             jBothNotZero   0x0030e6    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                 jSignsEQ   0x0030ea    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                      jEQ   0x003102    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                      jNE   0x003106    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                    jExch   0x00310e    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                  jNoExch   0x00312e    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                   jFinal   0x003138    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                  jAisNeg   0x003144    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                   jShift   0x00314a    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                   jExpEQ   0x003154    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+                  jRotate   0x003160    program     static C:\MCC18\v3_39\src\traditional\math\compFP.asm
+            __FpReturnNaN   0x003172    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+                 __FpExit   0x00317e    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+        __FpReturnSignInf   0x003180    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+         __FpReturnNegInf   0x003184    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+         __FpReturnPosInf   0x00318a    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+           jReturnPosInf0   0x00318e    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+               jZero1and2   0x003192    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+       __FpReturnSignZero   0x003198    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+        __FpReturnNegZero   0x00319c    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+        __FpReturnPosZero   0x0031a4    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+                 __FpPack   0x0031aa    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+                  jPkLoop   0x0031b8    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+             jPkShiftDone   0x0031d4    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+               jPkRoundIt   0x0031ea    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+              __FpReturnW   0x003202    program     extern C:\MCC18\v3_39\src\traditional\math\packFP.asm
+             jPkRoundDone   0x003202    program     static C:\MCC18\v3_39\src\traditional\math\packFP.asm
+              __FpUnPackA   0x003222    program     extern C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                  jUnpkA1   0x00322c    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                 jUnpkANZ   0x00323a    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                  jUnpkA2   0x003244    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                 jUnpkNaN   0x00324e    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+              __FpUnPackB   0x003252    program     extern C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                  jUnpkB1   0x00325c    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                 jUnpkBNZ   0x00326a    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                  jUnpkB2   0x003274    program     static C:\MCC18\v3_39\src\traditional\math\UnpackFP.asm
+                pid_reset   0x00327e    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                  pid_abs   0x0032aa    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                      pid   0x003374    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                lcd_write   0x0038b6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                lcd_clear   0x0038f2    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+               lcd_string   0x003908    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+            lcd_character   0x00398c    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                lcd_line1   0x0039a8    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                lcd_line2   0x0039c6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                lcd_line3   0x0039e4    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                lcd_line4   0x003a02    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                 lcd_init   0x003a20    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\LCD.c
+                     itoa   0x003aae    program     extern C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                jTstSign1   0x003ada    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                     jDo5   0x003b24    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                     jDo4   0x003b28    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                     jDo3   0x003b2c    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                     jDo2   0x003b30    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                     jDo1   0x003b34    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                 TstUpper   0x003b68    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                 TstLower   0x003b6e    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                jTstLowZ1   0x003b78    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                ProcUpper   0x003b7a    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                ProcLower   0x003b84    program     static C:\MCC18\v3_39\src\traditional\stdclib\itoa.asm
+                   itoBCD   0x003b8e    program     extern C:\MCC18\v3_39\src\traditional\stdclib\itobcd.asm
+                    jLoop   0x003ba6    program     static C:\MCC18\v3_39\src\traditional\stdclib\itobcd.asm
+                     jEnd   0x003bcc    program     static C:\MCC18\v3_39\src\traditional\stdclib\itobcd.asm
+                  OneByte   0x003bd0    program     static C:\MCC18\v3_39\src\traditional\stdclib\itobcd.asm
+              __string_37   0x003be2    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_36   0x003be7    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_35   0x003beb    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_34   0x003bef    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_33   0x003bf3    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_32   0x003c03    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_31   0x003c0b    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_30   0x003c14    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_29   0x003c17    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_28   0x003c1c    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_27   0x003c21    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_26   0x003c23    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_25   0x003c25    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_24   0x003c29    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_23   0x003c2f    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_22   0x003c34    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_21   0x003c39    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_20   0x003c3e    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_19   0x003c44    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_18   0x003c4e    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_17   0x003c56    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_16   0x003c5d    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_15   0x003c6a    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_14   0x003c83    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_13   0x003c8a    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_12   0x003c98    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_11   0x003c9f    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+              __string_10   0x003ca1    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_9   0x003ca8    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_8   0x003cae    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_7   0x003cb6    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_6   0x003cbd    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_5   0x003cc6    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __string_2   0x003ccc    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+               __string_1   0x003ce3    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                _do_cinit   0x003cf2    program     extern C:\MCC18\v3_39\src\traditional\startup\c018i.c
+                     test   0x003d0c    program     static                          
+                copy_loop   0x003d64    program     static                          
+            copy_one_byte   0x003d6a    program     static                          
+             done_copying   0x003d78    program     static                          
+                     done   0x003d8e    program     static                          
+       ___return_lbl00002   0x003d8e    program     static                          
+                  DelayMs   0x003d90    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\Delay.c
+                   DelayS   0x003dc6    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\Delay.c
+              EEPROM_Read   0x003df0    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\EEPROM.c
+             EEPROM_Write   0x003e0e    program     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\EEPROM.c
+                 FXD2424U   0x003e44    program     extern C:\MCC18\v3_39\src\traditional\math\fxd2424u.c
+                     loop   0x003e50    program     static                          
+                   _false   0x003e78    program     static                          
+       ___return_lbl00000   0x003e7c    program     static                          
+            __zero_memory   0x003e7e    program     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               zero_block   0x003e8c    program     static C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   loop_h   0x003e8c    program     static C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                compare_l   0x003e94    program     static C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   loop_l   0x003e96    program     static C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 _startup   0x003e9e    program     extern C:\MCC18\v3_39\src\traditional\startup\c018i.c
+                     loop   0x003eae    program     static                          
+       ___return_lbl00001   0x003eb8    program     static                          
+               __config_0   0x300001    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __config_1   0x300003    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __config_2   0x300005    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               __config_3   0x300006    program     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                     SIGN   0x000000       data     extern C:\MCC18\v3_39\src\traditional\math\cmath18.asm
+                __FPFLAGS   0x000001       data     extern C:\MCC18\v3_39\src\traditional\math\cmath18.asm
+            __FPFLAGSbits   0x000001       data     extern C:\MCC18\v3_39\src\traditional\math\cmath18.asm
+                 __AARGB7   0x000002       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                  __REMB3   0x000002       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB6   0x000003       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                  __REMB2   0x000003       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB5   0x000004       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                  __REMB1   0x000004       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB4   0x000005       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                  __REMB0   0x000005       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB3   0x000006       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB2   0x000007       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB1   0x000008       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __AARGB0   0x000009       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                   __AEXP   0x00000a       data     extern C:\MCC18\v3_39\src\traditional\math\aarg.asm
+                 __BARGB3   0x00000b       data     extern C:\MCC18\v3_39\src\traditional\math\barg.asm
+                 __BARGB2   0x00000c       data     extern C:\MCC18\v3_39\src\traditional\math\barg.asm
+                 __BARGB1   0x00000d       data     extern C:\MCC18\v3_39\src\traditional\math\barg.asm
+                 __BARGB0   0x00000e       data     extern C:\MCC18\v3_39\src\traditional\math\barg.asm
+                   __BEXP   0x00000f       data     extern C:\MCC18\v3_39\src\traditional\math\barg.asm
+                 __TEMPB3   0x000010       data     extern C:\MCC18\v3_39\src\traditional\math\temparg.asm
+                 __TEMPB2   0x000011       data     extern C:\MCC18\v3_39\src\traditional\math\temparg.asm
+                 __TEMPB1   0x000012       data     extern C:\MCC18\v3_39\src\traditional\math\temparg.asm
+                 __TEMPB0   0x000013       data     extern C:\MCC18\v3_39\src\traditional\math\temparg.asm
+                   __TEMP   0x000013       data     extern C:\MCC18\v3_39\src\traditional\math\temparg.asm
+                  __tmp_0   0x000014       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                  __tmp_0   0x000014       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  __tmp_0   0x000014       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                  __tmp_1   0x000027       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  __tmp_2   0x000029       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                      buf   0x000060       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                  on_menu   0x000092       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+              on_sub_menu   0x000093       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+              update_menu   0x000094       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+         update_menu_item   0x000095       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+            button_states   0x000097       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                 max_menu   0x0000a0       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                 menu_dir   0x0000a1       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+             max_sub_menu   0x0000a2       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+               update_lcd   0x0000a6       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\UI.c
+                     INIT   0x0000a7       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  do_tick   0x0000a8       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                    ticks   0x0000a9       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               IOC_states   0x0000af       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                    gains   0x0000b3       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               rpm_actual   0x0000bb       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               rpm_target   0x0000bd       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+             startup_duty   0x0000bf       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                last_duty   0x0000c1       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                rpm_error   0x0000c3       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+         update_rpm_value   0x0000c7       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                 MAX_DUTY   0x0000c9       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  MAX_RPM   0x0000cb       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                  MIN_RPM   0x0000cd       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                   PAUSED   0x0000cf       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+          CURRENT_LIMITED   0x0000d0       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+CURRENT_LIMIT_LAST_DETECTED   0x0000d1       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+   CURRENT_LIMIT_DETECTED   0x0000d3       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+current_limit_count_sample   0x0000d5       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+       ENCODER_RESOLUTION   0x0000d6       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+   encoder_count_setpoint   0x0000d7       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+     encoder_count_sample   0x0000db       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+encoder_count_last_sample   0x0000dd       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+            encoder_count   0x0000df       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+        INDEXER_LAST_TACH   0x0000e2       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+        INDEXER_DUTY_LOCK   0x0000e3       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+             INDEXER_DUTY   0x0000e4       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               INDEXER_TX   0x0000e5       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+               INDEXER_ON   0x0000e6       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+          INDEXER_BRAKING   0x0000e7       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+          update_settings   0x0000e8       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\main.c
+                     prom   0x0000e9       data     static C:\MCC18\v3_39\src\traditional\startup\c018i.c
+                curr_byte   0x0000ec       data     static C:\MCC18\v3_39\src\traditional\startup\c018i.c
+               curr_entry   0x0000ee       data     static C:\MCC18\v3_39\src\traditional\startup\c018i.c
+                 data_ptr   0x0000f0       data     static C:\MCC18\v3_39\src\traditional\startup\c018i.c
+                   PID_ff   0x000200       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                   PID_kp   0x000204       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                   PID_ki   0x000208       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                   PID_kd   0x00020c       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                  PID_out   0x000210       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+            PID_out_clamp   0x000214       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+           PID_last_error   0x000216       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+     PID_derivative_delay   0x00021a       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+      PID_derivative_time   0x00021b       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+           PID_derivative   0x00021c       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+       PID_integral_delay   0x000220       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+        PID_integral_time   0x000221       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+       PID_integral_clamp   0x000222       data     extern X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+             PID_integral   0x000224       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+      PID_integral_sample   0x000228       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+     PID_integral_limited   0x00022c       data     static X:\Projects\Engineering\Distributables\DC Motor Controller & Driver\Software\PID.c
+                     UEP0   0x000f53       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP0bits   0x000f53       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP1   0x000f54       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP1bits   0x000f54       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP2bits   0x000f55       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP2   0x000f55       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP3bits   0x000f56       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP3   0x000f56       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP4bits   0x000f57       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP4   0x000f57       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP5   0x000f58       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP5bits   0x000f58       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP6bits   0x000f59       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP6   0x000f59       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEP7   0x000f5a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEP7bits   0x000f5a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEIEbits   0x000f5b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEIE   0x000f5b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                UADDRbits   0x000f5c       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    UADDR   0x000f5c       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                UFRMLbits   0x000f5d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    UFRML   0x000f5d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                UFRMHbits   0x000f5e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    UFRMH   0x000f5e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UEIR   0x000f5f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UEIRbits   0x000f5f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  UIEbits   0x000f60       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      UIE   0x000f60       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UCFG   0x000f61       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UCFGbits   0x000f61       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  UIRbits   0x000f62       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      UIR   0x000f62       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                USTATbits   0x000f63       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    USTAT   0x000f63       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     UCON   0x000f64       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 UCONbits   0x000f64       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               SRCON0bits   0x000f68       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SRCON0   0x000f68       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SRCON1   0x000f69       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               SRCON1bits   0x000f69       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  CM2CON0   0x000f6b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              CM2CON0bits   0x000f6b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              CM2CON1bits   0x000f6c       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  CM2CON1   0x000f6c       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              CM1CON0bits   0x000f6d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  CM1CON0   0x000f6d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SSPMSK   0x000f6f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               SSPMSKbits   0x000f6f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               SLRCONbits   0x000f76       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SLRCON   0x000f76       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 WPUAbits   0x000f77       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     WPUA   0x000f77       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     WPUB   0x000f78       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 WPUBbits   0x000f78       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 IOCAbits   0x000f79       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     IOCA   0x000f79       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     IOCB   0x000f7a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 IOCBbits   0x000f7a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                ANSELbits   0x000f7e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    ANSEL   0x000f7e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               ANSELHbits   0x000f7f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ANSELH   0x000f7f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                PORTAbits   0x000f80       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    PORTA   0x000f80       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                PORTBbits   0x000f81       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    PORTB   0x000f81       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    PORTC   0x000f82       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                PORTCbits   0x000f82       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     LATA   0x000f89       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 LATAbits   0x000f89       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     LATB   0x000f8a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 LATBbits   0x000f8a       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 LATCbits   0x000f8b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     LATC   0x000f8b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TRISA   0x000f92       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                TRISAbits   0x000f92       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     DDRA   0x000f92       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 DDRAbits   0x000f92       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                TRISBbits   0x000f93       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TRISB   0x000f93       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     DDRB   0x000f93       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 DDRBbits   0x000f93       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TRISC   0x000f94       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                TRISCbits   0x000f94       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 DDRCbits   0x000f94       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     DDRC   0x000f94       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              OSCTUNEbits   0x000f9b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  OSCTUNE   0x000f9b       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 PIE1bits   0x000f9d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     PIE1   0x000f9d       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     PIR1   0x000f9e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 PIR1bits   0x000f9e       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     IPR1   0x000f9f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 IPR1bits   0x000f9f       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 PIE2bits   0x000fa0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     PIE2   0x000fa0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 PIR2bits   0x000fa1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     PIR2   0x000fa1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 IPR2bits   0x000fa2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     IPR2   0x000fa2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               EECON1bits   0x000fa6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   EECON1   0x000fa6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   EECON2   0x000fa7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   EEDATA   0x000fa8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    EEADR   0x000fa9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                EEADRbits   0x000fa9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    RCSTA   0x000fab       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                RCSTAbits   0x000fab       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TXSTA   0x000fac       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                TXSTAbits   0x000fac       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TXREG   0x000fad       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    RCREG   0x000fae       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    SPBRG   0x000faf       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SPBRGH   0x000fb0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    T3CON   0x000fb1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                T3CONbits   0x000fb1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR3L   0x000fb2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR3H   0x000fb3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              ECCP1ASbits   0x000fb6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  ECCP1AS   0x000fb6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  PWM1CON   0x000fb7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              PWM1CONbits   0x000fb7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              BAUDCTLbits   0x000fb8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  BAUDCTL   0x000fb8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              BAUDCONbits   0x000fb8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  BAUDCON   0x000fb8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  PSTRCON   0x000fb9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              PSTRCONbits   0x000fb9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 VREFCON0   0x000fba       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+             VREFCON0bits   0x000fba       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              REFCON0bits   0x000fba       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  REFCON0   0x000fba       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  REFCON1   0x000fbb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              REFCON1bits   0x000fbb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+             VREFCON1bits   0x000fbb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 VREFCON1   0x000fbb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  REFCON2   0x000fbc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              REFCON2bits   0x000fbc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+             VREFCON2bits   0x000fbc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 VREFCON2   0x000fbc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  CCP1CON   0x000fbd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              CCP1CONbits   0x000fbd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    CCPR1   0x000fbe       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   CCPR1L   0x000fbe       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   CCPR1H   0x000fbf       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ADCON2   0x000fc0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               ADCON2bits   0x000fc0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               ADCON1bits   0x000fc1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ADCON1   0x000fc1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ADCON0   0x000fc2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               ADCON0bits   0x000fc2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    ADRES   0x000fc3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ADRESL   0x000fc3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   ADRESH   0x000fc4       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              SSPCON2bits   0x000fc5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  SSPCON2   0x000fc5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  SSPCON1   0x000fc6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              SSPCON1bits   0x000fc6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              SSPSTATbits   0x000fc7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  SSPSTAT   0x000fc7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SSPADD   0x000fc8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   SSPBUF   0x000fc9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    T2CON   0x000fca       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                T2CONbits   0x000fca       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      PR2   0x000fcb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     TMR2   0x000fcc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                T1CONbits   0x000fcd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    T1CON   0x000fcd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR1L   0x000fce       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR1H   0x000fcf       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     RCON   0x000fd0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 RCONbits   0x000fd0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               WDTCONbits   0x000fd1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   WDTCON   0x000fd1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              OSCCON2bits   0x000fd2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  OSCCON2   0x000fd2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               OSCCONbits   0x000fd3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   OSCCON   0x000fd3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                T0CONbits   0x000fd5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    T0CON   0x000fd5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR0L   0x000fd6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    TMR0H   0x000fd7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               STATUSbits   0x000fd8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   STATUS   0x000fd8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     FSR2   0x000fd9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR2L   0x000fd9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR2H   0x000fda       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   PLUSW2   0x000fdb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  PREINC2   0x000fdc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTDEC2   0x000fdd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTINC2   0x000fde       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    INDF2   0x000fdf       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      BSR   0x000fe0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR1L   0x000fe1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     FSR1   0x000fe1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR1H   0x000fe2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   PLUSW1   0x000fe3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  PREINC1   0x000fe4       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTDEC1   0x000fe5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTINC1   0x000fe6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    INDF1   0x000fe7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                        W   0x000fe8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     WREG   0x000fe8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     FSR0   0x000fe9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR0L   0x000fe9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    FSR0H   0x000fea       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   PLUSW0   0x000feb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  PREINC0   0x000fec       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTDEC0   0x000fed       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                 POSTINC0   0x000fee       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    INDF0   0x000fef       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  INTCON3   0x000ff0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              INTCON3bits   0x000ff0       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  INTCON2   0x000ff1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+              INTCON2bits   0x000ff1       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               INTCONbits   0x000ff2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   INTCON   0x000ff2       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     PROD   0x000ff3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    PRODL   0x000ff3       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                    PRODH   0x000ff4       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   TABLAT   0x000ff5       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  TBLPTRL   0x000ff6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   TBLPTR   0x000ff6       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  TBLPTRH   0x000ff7       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                  TBLPTRU   0x000ff8       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      PCL   0x000ff9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                       PC   0x000ff9       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   PCLATH   0x000ffa       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   PCLATU   0x000ffb       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                   STKPTR   0x000ffc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+               STKPTRbits   0x000ffc       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                      TOS   0x000ffd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     TOSL   0x000ffd       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     TOSH   0x000ffe       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+                     TOSU   0x000fff       data     extern C:\MCC18\v3_39\src\traditional\proc\p18LF14K50.asm
+
+
