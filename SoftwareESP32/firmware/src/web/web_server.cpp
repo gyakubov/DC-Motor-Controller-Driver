@@ -8,7 +8,7 @@
 #include <ESPAsyncWebServer.h>
 #include <ArduinoJson.h>
 
-#define FW_VERSION "v0.2.0"
+#define FW_VERSION "v0.3.0"
 
 static AsyncWebServer server(80);
 static AsyncWebSocket ws("/ws");
