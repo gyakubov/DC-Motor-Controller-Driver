@@ -8,6 +8,7 @@
  */
 #include <Arduino.h>
 #include "control/control.h"
+#include "dro/dro.h"
 #include "web/web_server.h"
 #include "cli/cli.h"
 
@@ -15,6 +16,7 @@ void setup() {
     Serial.begin(57600); // lowered from 115200 for more reliable comms on this board/wiring
 
     control_init(); // PCNT tach/encoder, MCPWM + trip-zone, PID task (core 1)
+    dro_init();     // Z/X linear-scale quadrature decoders (PCNT units 1-2)
     web_init();     // WiFi, ESPAsyncWebServer, WebSocket telemetry/commands (core 0)
     cli_init();     // esp_console REPL over USB-Serial/JTAG
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <stdbool.h>
+#include <stdint.h>
 
 // ---- Pin assignments - differ per target since GPIO/ADC maps aren't
 // portable between chip variants (flash pins, UART0 pins, and which GPIOs
@@ -13,6 +14,10 @@
 #define PIN_DIR         7   // Motor direction relay output
 #define PIN_CURRENT_ADC 1   // Hall-effect isolated current sensor analog output (ADC1)
 #define PIN_TEMP_ADC    2   // MOSFET NTC thermistor analog input (ADC1)
+#define PIN_DRO_Z_A     9   // DRO Z scale quadrature A (PCNT unit 1)
+#define PIN_DRO_Z_B     10  // DRO Z scale quadrature B
+#define PIN_DRO_X_A     11  // DRO X scale quadrature A (PCNT unit 2)
+#define PIN_DRO_X_B     12  // DRO X scale quadrature B
 #else
 // Classic ESP32 (DevKitC/WROOM-32 etc): GPIO6-11 are reserved for the
 // in-package flash, GPIO1/3 are UART0 TX/RX (Serial/flashing) - avoid both.
@@ -23,6 +28,10 @@
 #define PIN_DIR         22  // Motor direction relay output
 #define PIN_CURRENT_ADC 34  // Hall-effect isolated current sensor analog output (ADC1_CH6, input-only)
 #define PIN_TEMP_ADC    35  // MOSFET NTC thermistor analog input (ADC1_CH7, input-only)
+#define PIN_DRO_Z_A     25  // DRO Z scale quadrature A (PCNT unit 1)
+#define PIN_DRO_Z_B     26  // DRO Z scale quadrature B
+#define PIN_DRO_X_A     27  // DRO X scale quadrature A (PCNT unit 2)
+#define PIN_DRO_X_B     14  // DRO X scale quadrature B
 #endif
 
 // Starts the real-time control subsystem: PCNT (tachometer), MCPWM with a
@@ -78,3 +87,6 @@ typedef struct {
 } control_status_t;
 
 control_status_t control_get_status();
+
+// Wrapping count of spindle tach pulses since boot; divide by enc_res for revolutions.
+uint32_t control_get_tach_total();

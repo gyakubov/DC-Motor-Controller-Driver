@@ -55,6 +55,7 @@ static Preferences s_prefs;
 // only. The actual PWM shutdown already happened in silicon via the MCPWM
 // trip-zone before this ISR even runs.
 static volatile bool s_fault_isr_flag = false;
+static volatile uint32_t s_tach_total = 0;
 
 static void IRAM_ATTR fault_isr(void *arg) {
     s_fault_isr_flag = true;
@@ -205,6 +206,7 @@ static void control_task(void *arg) {
         pcnt_get_counter_value(PCNT_UNIT_0, &raw_count);
         pcnt_counter_clear(PCNT_UNIT_0);
         int count_this_tick = raw_count;
+        if (raw_count > 0) s_tach_total += raw_count;
 
         // Snapshot commanded values.
         int rpm_target; bool running, direction_reverse, clear_fault_request, direct_mode;
@@ -473,6 +475,10 @@ void control_clear_fault() {
     s_shared.current_limited = false;
     s_shared.clear_fault_request = true;
     xSemaphoreGive(s_mutex);
+}
+
+uint32_t control_get_tach_total() {
+    return s_tach_total;
 }
 
 control_status_t control_get_status() {

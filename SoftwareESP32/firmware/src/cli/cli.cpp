@@ -1,5 +1,6 @@
 #include "cli.h"
 #include "../control/control.h"
+#include "../dro/dro.h"
 #include <Arduino.h>
 
 static void print_status() {
@@ -14,7 +15,7 @@ static void print_status() {
 static void print_help() {
     Serial.println(
         "commands: status | start | stop | clear | dir fwd|rev | mode pid|direct |\n"
-        "          set rpm <v> | set kp|ki|kd|ff <v> | help");
+        "          set rpm <v> | set kp|ki|kd|ff <v> | dro | dro zero z|x | dro set z|x <mm> | help");
 }
 
 // Simple whitespace-tokenized command dispatcher - intentionally not a full
@@ -51,6 +52,22 @@ static void handle_line(char *line) {
         } else {
             Serial.println(control_get_status().direct_mode ? "direct" : "pid");
         }
+    } else if (!strcmp(tok[0], "dro")) {
+        if (n == 1) {
+            dro_state_t p = dro_get_state();
+            Serial.printf("Z=%.4f X=%.4f mm\n", p.mm[DRO_Z], p.mm[DRO_X]);
+            return;
+        }
+        int a = (n >= 3 && !strcmp(tok[2], "z")) ? DRO_Z : ((n >= 3 && !strcmp(tok[2], "x")) ? DRO_X : -1);
+        if (!strcmp(tok[1], "zero") && a >= 0) {
+            dro_preset(a, 0);
+        } else if (!strcmp(tok[1], "set") && a >= 0 && n >= 4) {
+            if (!dro_preset(a, atof(tok[3]))) { Serial.println("rejected"); return; }
+        } else {
+            Serial.println("usage: dro | dro zero z|x | dro set z|x <mm>");
+            return;
+        }
+        Serial.println("ok");
     } else if (!strcmp(tok[0], "set") && n >= 3) {
         float v = atof(tok[2]);
         control_status_t s = control_get_status();

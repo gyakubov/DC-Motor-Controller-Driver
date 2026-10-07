@@ -1,5 +1,6 @@
 #include "web_server.h"
 #include "../control/control.h"
+#include "../dro/dro.h"
 #include <Arduino.h>
 #include <WiFi.h>
 #include <LittleFS.h>
@@ -15,6 +16,7 @@ static Preferences s_wifi_prefs;
 static String s_ssid = WIFI_AP_SSID;
 static String s_pass = WIFI_AP_PASS;
 static volatile bool s_restart_requested = false;
+static volatile bool s_dro_dirty = false; // a DRO command changed state without moving an axis
 
 static void send_json(AsyncWebSocketClient *client, const JsonDocument &doc) {
     String out;
@@ -43,6 +45,18 @@ static void send_settings(AsyncWebSocketClient *client) {
     doc["ssid"] = s_ssid;
     doc["fw"] = FW_VERSION;
     doc["chip"] = ESP.getChipModel();
+    send_json(client, doc);
+}
+
+static void send_dro_cfg(AsyncWebSocketClient *client) {
+    dro_config_t c = dro_get_config();
+    JsonDocument doc;
+    doc["type"] = "dro_cfg";
+    doc["z_cpm"] = c.counts_per_mm[DRO_Z];
+    doc["x_cpm"] = c.counts_per_mm[DRO_X];
+    doc["z_inv"] = c.invert[DRO_Z];
+    doc["x_inv"] = c.invert[DRO_X];
+    doc["x_dia"] = c.x_diameter;
     send_json(client, doc);
 }
 
@@ -93,6 +107,48 @@ static void handle_command(AsyncWebSocketClient *client, const JsonDocument &doc
             send_notice(client, "info", "Settings saved to flash");
         }
         send_settings(nullptr);
+    } else if (!strcmp(cmd, "dro_set")) {
+        const char *axis = doc["axis"] | "";
+        int a = !strcmp(axis, "z") ? DRO_Z : (!strcmp(axis, "x") ? DRO_X : -1);
+        if (!doc["value"].is<float>() || !dro_preset(a, doc["value"].as<float>())) {
+            send_notice(client, "err", "DRO value rejected");
+        }
+        s_dro_dirty = true;
+    } else if (!strcmp(cmd, "dro_inc")) {
+        const char *axis = doc["axis"] | "";
+        int a = !strcmp(axis, "z") ? DRO_Z : (!strcmp(axis, "x") ? DRO_X : -1);
+        if (!dro_set_inc(a, doc["inc"] | false)) send_notice(client, "err", "DRO axis rejected");
+        s_dro_dirty = true;
+    } else if (!strcmp(cmd, "dro_wcs")) {
+        if (!dro_select_wcs(doc["n"] | -1)) send_notice(client, "err", "Work zero slot rejected");
+        s_dro_dirty = true;
+    } else if (!strcmp(cmd, "dro_tool")) {
+        if (!dro_select_tool(doc["n"] | -1)) send_notice(client, "err", "Tool number rejected");
+        s_dro_dirty = true;
+    } else if (!strcmp(cmd, "dro_tool_set")) {
+        const char *axis = doc["axis"] | "";
+        int a = !strcmp(axis, "z") ? DRO_Z : (!strcmp(axis, "x") ? DRO_X : -1);
+        if (!doc["value"].is<float>() || !dro_tool_touch_off(a, doc["value"].as<float>())) {
+            send_notice(client, "err", "Tool touch-off needs ABS mode and a valid value");
+        }
+        s_dro_dirty = true;
+    } else if (!strcmp(cmd, "dro_tool_clr")) {
+        dro_tool_clear();
+        s_dro_dirty = true;
+    } else if (!strcmp(cmd, "set_dro_cfg")) {
+        dro_config_t c = {
+            { doc["z_cpm"] | 0.0f, doc["x_cpm"] | 0.0f },
+            { doc["z_inv"] | false, doc["x_inv"] | false },
+            doc["x_dia"] | false,
+        };
+        if (!dro_set_config(c)) {
+            send_notice(client, "err", "DRO setup rejected: counts/mm must be 1-100000");
+        } else if (!dro_save_config()) {
+            send_notice(client, "err", "DRO setup applied but saving to flash failed");
+        } else {
+            send_notice(client, "info", "DRO setup saved to flash");
+        }
+        send_dro_cfg(nullptr);
     } else if (!strcmp(cmd, "set_wifi")) {
         String ssid = doc["ssid"] | "";
         String pass = doc["pass"] | "";
@@ -116,6 +172,7 @@ static void on_ws_event(AsyncWebSocket *server, AsyncWebSocketClient *client,
                         AwsEventType type, void *arg, uint8_t *data, size_t len) {
     if (type == WS_EVT_CONNECT) {
         send_settings(client);
+        send_dro_cfg(client);
         return;
     }
     if (type != WS_EVT_DATA) return;
@@ -133,8 +190,16 @@ static void on_ws_event(AsyncWebSocket *server, AsyncWebSocketClient *client,
 // which is a quick mutex-protected read; this task never touches hardware.
 static void telemetry_task(void *arg) {
     char buf[512];
+    int tick = 0;
+    float last_dro[DRO_AXES] = {NAN, NAN};
+    // Feed (mm of axis travel per spindle revolution) over a 500ms window.
+    uint32_t win_ms = millis(), win_tach = control_get_tach_total();
+    float win_raw[DRO_AXES], feed[DRO_AXES] = {-1, -1};
+    dro_state_t init = dro_get_state();
+    for (int a = 0; a < DRO_AXES; a++) win_raw[a] = init.raw_mm[a];
     for (;;) {
-        vTaskDelay(pdMS_TO_TICKS(150));
+        vTaskDelay(pdMS_TO_TICKS(50)); // DRO rate; the status message goes out every 3rd tick (150ms)
+        tick++;
 
         if (s_restart_requested) {
             vTaskDelay(pdMS_TO_TICKS(400)); // let the notice reach the client
@@ -142,6 +207,31 @@ static void telemetry_task(void *arg) {
         }
 
         if (ws.count() == 0) continue;
+
+        dro_state_t p = dro_get_state();
+        if (millis() - win_ms >= 500) {
+            uint32_t tach = control_get_tach_total();
+            float revs = (float)(uint32_t)(tach - win_tach) / control_get_settings().enc_res;
+            for (int a = 0; a < DRO_AXES; a++) {
+                feed[a] = revs >= 0.2f ? fabsf(p.raw_mm[a] - win_raw[a]) / revs : -1.0f;
+                win_raw[a] = p.raw_mm[a];
+            }
+            win_ms = millis();
+            win_tach = tach;
+        }
+        if (p.mm[DRO_Z] != last_dro[DRO_Z] || p.mm[DRO_X] != last_dro[DRO_X] || s_dro_dirty || tick % 6 == 0) {
+            s_dro_dirty = false;
+            last_dro[DRO_Z] = p.mm[DRO_Z];
+            last_dro[DRO_X] = p.mm[DRO_X];
+            snprintf(buf, sizeof(buf),
+                "{\"type\":\"dro\",\"z\":%.4f,\"x\":%.4f,\"zinc\":%s,\"xinc\":%s,"
+                "\"wcs\":%d,\"tool\":%d,\"tz\":%.4f,\"tx\":%.4f,\"fz\":%.4f,\"fx\":%.4f}",
+                p.mm[DRO_Z], p.mm[DRO_X], p.inc[DRO_Z] ? "true" : "false", p.inc[DRO_X] ? "true" : "false",
+                p.wcs, p.tool, p.tool_off[DRO_Z], p.tool_off[DRO_X], feed[DRO_Z], feed[DRO_X]);
+            ws.textAll(buf);
+        }
+
+        if (tick % 3 != 0) continue;
 
         control_status_t s = control_get_status();
         snprintf(buf, sizeof(buf),

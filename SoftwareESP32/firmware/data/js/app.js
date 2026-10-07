@@ -22,12 +22,22 @@
     temperature: 25,
     history2: [], // {current, temp}
     prev: null, // previous status, for event-log transitions
+    droZ: 0, droX: 0,      // displayed positions in mm
+    droInch: localStorage.getItem('droInch') === '1',
+    droSel: null,          // axis ('z'|'x') the number pad is editing
+    droEntry: '',
+    droXDia: true,
+    droInc: { z: false, x: false },
+    droWcs: 0, droTool: 0,
+    droToolOff: { z: 0, x: 0 }, // active tool offsets, mm
+    droFeed: { z: -1, x: -1 },  // mm of travel per spindle rev, <0 = spindle too slow
   };
 
   let ws = null;
   let lastLocalTarget = 0; // ms timestamp of the last local setpoint edit
   let gainsDirty = false;  // user is editing gains - don't overwrite from telemetry
   let settingsDirty = false;
+  let droCfgDirty = false;
   let targetTimer = null;
 
   const $ = (sel) => document.querySelector(sel);
@@ -50,6 +60,16 @@
       encRes: $('#setEncRes'), ssid: $('#setSsid'), pass: $('#setPass'),
     },
     fwInfo: $('#fwInfo'),
+    droVal: { z: $('#droZ'), x: $('#droX') },
+    droXMode: $('#droXMode'), droRpm: $('#droRpm'), droEntry: $('#droEntry'),
+    droUnitToggle: $('#droUnitToggle'), droSetKey: $('[data-key="set"]'),
+    droToolSetKey: $('[data-key="toolset"]'),
+    droFeedZ: $('#droFeedZ'), droFeedX: $('#droFeedX'), droToolOff: $('#droToolOff'),
+    droFeedUnit: $('.dro-feed-unit'),
+    droCfg: {
+      zCpm: $('#setZcpm'), xCpm: $('#setXcpm'),
+      zInv: $('#setZinv'), xInv: $('#setXinv'), xDia: $('#setXdia'),
+    },
   };
 
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -98,6 +118,8 @@
       try { m = JSON.parse(ev.data); } catch { return; }
       if (m.type === 'status') onStatus(m);
       else if (m.type === 'settings') onSettings(m);
+      else if (m.type === 'dro') onDro(m);
+      else if (m.type === 'dro_cfg') onDroCfg(m);
       else if (m.type === 'notice') logEvent(m.text, m.level);
     };
   }
@@ -205,7 +227,157 @@
 
     el.diagCurrent.textContent = `${state.current.toFixed(1)} A`;
     el.diagTemp.textContent = `${state.temperature.toFixed(1)} \u00b0C`;
+    el.droRpm.textContent = Math.round(state.rpmActual);
+    renderDro();
   }
+
+  // ---------------- DRO ----------------
+  const MM_PER_IN = 25.4;
+  const droText = (mm) => (state.droInch ? (mm / MM_PER_IN).toFixed(4) : mm.toFixed(3));
+
+  function renderDro() {
+    el.droVal.z.textContent = droText(state.droZ);
+    el.droVal.x.textContent = droText(state.droX);
+    document.querySelectorAll('.dro-unit').forEach((u) => { u.textContent = state.droInch ? 'in' : 'mm'; });
+    el.droUnitToggle.querySelectorAll('.seg-btn').forEach((b) => {
+      b.classList.toggle('active', (b.dataset.unit === 'in') === state.droInch);
+    });
+    el.droXMode.textContent = state.droXDia ? 'DIA' : 'RAD';
+    document.querySelectorAll('.dro-axis').forEach((a) => {
+      a.classList.toggle('selected', a.dataset.axis === state.droSel);
+    });
+    const hasValue = Number.isFinite(parseFloat(state.droEntry));
+    el.droEntry.classList.toggle('active', !!state.droSel);
+    el.droEntry.textContent = state.droSel
+      ? `${state.droSel.toUpperCase()} = ${state.droEntry || '_'} ${state.droInch ? 'in' : 'mm'}`
+      : 'Tap Z or X to edit';
+    el.droSetKey.disabled = !state.connected || !state.droSel || !hasValue;
+    el.droToolSetKey.disabled = !state.connected || !state.droSel || !hasValue || state.droInc[state.droSel];
+    document.querySelectorAll('[data-dro]').forEach((b) => { b.disabled = !state.connected; });
+    document.querySelectorAll('[data-dro="inc"]').forEach((b) => {
+      const inc = state.droInc[b.dataset.axis];
+      b.textContent = inc ? 'INC' : 'ABS';
+      b.classList.toggle('inc-on', inc);
+      b.closest('.dro-axis').classList.toggle('inc', inc);
+    });
+    document.querySelectorAll('[data-wcs]').forEach((b) => {
+      b.classList.toggle('active', +b.dataset.wcs === state.droWcs);
+    });
+    document.querySelectorAll('[data-tool]').forEach((b) => {
+      b.classList.toggle('active', +b.dataset.tool === state.droTool);
+    });
+    const feed = (mm) => (mm < 0 ? '\u2014' : droText(mm));
+    el.droFeedZ.textContent = feed(state.droFeed.z);
+    el.droFeedX.textContent = feed(state.droFeed.x);
+    el.droFeedUnit.textContent = state.droInch ? 'in/rev' : 'mm/rev';
+    el.droToolOff.textContent = `T${state.droTool + 1} offset Z ${droText(state.droToolOff.z)} X ${droText(state.droToolOff.x)}`;
+  }
+
+  function onDro(m) {
+    state.droZ = m.z;
+    state.droX = m.x;
+    state.droInc = { z: m.zinc, x: m.xinc };
+    state.droWcs = m.wcs;
+    state.droTool = m.tool;
+    state.droToolOff = { z: m.tz, x: m.tx };
+    state.droFeed = { z: m.fz, x: m.fx };
+    renderDro();
+  }
+
+  function onDroCfg(m) {
+    state.droXDia = m.x_dia;
+    el.droXMode.textContent = m.x_dia ? 'DIA' : 'RAD';
+    if (droCfgDirty) return;
+    el.droCfg.zCpm.value = m.z_cpm;
+    el.droCfg.xCpm.value = m.x_cpm;
+    el.droCfg.zInv.checked = m.z_inv;
+    el.droCfg.xInv.checked = m.x_inv;
+    el.droCfg.xDia.checked = m.x_dia;
+  }
+
+  document.querySelectorAll('.dro-axis').forEach((row) => {
+    row.addEventListener('click', (e) => {
+      if (e.target.closest('button')) return;
+      state.droSel = state.droSel === row.dataset.axis ? null : row.dataset.axis;
+      state.droEntry = '';
+      renderDro();
+    });
+  });
+
+  document.querySelectorAll('[data-dro]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const axis = btn.dataset.axis;
+      if (btn.dataset.dro === 'inc') {
+        send({ cmd: 'dro_inc', axis, inc: !state.droInc[axis] });
+        return;
+      }
+      const shown = axis === 'z' ? state.droZ : state.droX;
+      send({ cmd: 'dro_set', axis, value: btn.dataset.dro === 'half' ? shown / 2 : 0 });
+    });
+  });
+
+  document.querySelectorAll('[data-wcs]').forEach((btn) => {
+    btn.addEventListener('click', () => send({ cmd: 'dro_wcs', n: +btn.dataset.wcs }));
+  });
+  document.querySelectorAll('[data-tool]').forEach((btn) => {
+    btn.addEventListener('click', () => send({ cmd: 'dro_tool', n: +btn.dataset.tool }));
+  });
+
+  document.querySelectorAll('.dro-keys button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.key;
+      if (key === 'toolclr') {
+        if (confirm(`Clear offsets of tool T${state.droTool + 1}?`)) send({ cmd: 'dro_tool_clr' });
+        return;
+      }
+      if (!state.droSel) return;
+      let e = state.droEntry;
+      if (key === 'set' || key === 'toolset') {
+        const v = parseFloat(e);
+        if (!Number.isFinite(v)) return;
+        send({
+          cmd: key === 'set' ? 'dro_set' : 'dro_tool_set',
+          axis: state.droSel,
+          value: state.droInch ? v * MM_PER_IN : v,
+        });
+        e = '';
+      } else if (key === 'back') {
+        e = e.slice(0, -1);
+      } else if (key === 'clr') {
+        e = '';
+      } else if (key === 'sign') {
+        e = e.startsWith('-') ? e.slice(1) : `-${e}`;
+      } else if (key === '.') {
+        if (!e.includes('.')) e = `${e === '' || e === '-' ? `${e}0` : e}.`;
+      } else if (e.length < 10) {
+        e += key;
+      }
+      state.droEntry = e;
+      renderDro();
+    });
+  });
+
+  el.droUnitToggle.querySelectorAll('.seg-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      state.droInch = btn.dataset.unit === 'in';
+      localStorage.setItem('droInch', state.droInch ? '1' : '0');
+      state.droEntry = '';
+      renderDro();
+    });
+  });
+
+  Object.values(el.droCfg).forEach((input) => input.addEventListener('input', () => { droCfgDirty = true; }));
+  $('#saveDro').addEventListener('click', () => {
+    const sent = send({
+      cmd: 'set_dro_cfg',
+      z_cpm: parseFloat(el.droCfg.zCpm.value) || 0,
+      x_cpm: parseFloat(el.droCfg.xCpm.value) || 0,
+      z_inv: el.droCfg.zInv.checked,
+      x_inv: el.droCfg.xInv.checked,
+      x_dia: el.droCfg.xDia.checked,
+    });
+    if (sent) droCfgDirty = false;
+  });
 
   // ---------------- start/stop/faults ----------------
   el.startBtn.addEventListener('click', () => {
@@ -388,5 +560,6 @@
 
   setConnected(false);
   el.wsText.textContent = 'Connecting...';
+  renderDro();
   connect();
 })();
