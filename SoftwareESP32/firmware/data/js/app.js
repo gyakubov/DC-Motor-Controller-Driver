@@ -53,6 +53,7 @@
     chart: $('#chart'), chart2: $('#chart2'), chart3: $('#chart3'),
     eventLog: $('#eventLog'),
     diagPulses: $('#diagPulses'), diagCurrent: $('#diagCurrent'), diagTemp: $('#diagTemp'),
+    diagEnc: $('#diagEnc'), diagIndex: $('#diagIndex'), encCpr: $('#encCpr'),
     diagLoad: $('#diagLoad'), diagHeap: $('#diagHeap'),
     gains: { kp: $('#kpVal'), ki: $('#kiVal'), kd: $('#kdVal'), ff: $('#ffVal') },
     set: {
@@ -160,6 +161,9 @@
     }
 
     el.diagPulses.textContent = m.pulses;
+    const sdir = m.sdir > 0 ? 'FWD' : (m.sdir < 0 ? 'REV' : 'stopped');
+    el.diagEnc.textContent = `${sdir} \u00b7 ${m.cpr} cnt/rev`;
+    el.diagIndex.textContent = m.idx > 1 ? `${m.cpi} (expect ${m.cpr})` : '\u2014';
     el.diagLoad.textContent = `${m.load} %`;
     el.diagHeap.textContent = `${Math.round(m.heap / 1024)} kB`;
 
@@ -183,6 +187,7 @@
       el.set.minRpm.value = m.min_rpm;
       el.set.maxDuty.value = m.max_duty;
       el.set.encRes.value = m.enc_res;
+      el.encCpr.textContent = m.enc_res * 4;
       el.set.ssid.value = m.ssid;
     }
     el.fwInfo.textContent = `Firmware ${m.fw} \u00b7 ${m.chip}`;
@@ -450,6 +455,9 @@
 
   // ---------------- settings ----------------
   Object.values(el.set).forEach((input) => input.addEventListener('input', () => { settingsDirty = true; }));
+  el.set.encRes.addEventListener('input', () => {
+    el.encCpr.textContent = (parseInt(el.set.encRes.value, 10) || 0) * 4;
+  });
 
   $('#saveSettings').addEventListener('click', () => {
     const ssid = el.set.ssid.value.trim();

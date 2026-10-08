@@ -8,7 +8,9 @@
 // the Arduino-ESP32 build for whichever board/env you build.
 #if CONFIG_IDF_TARGET_ESP32S3
 // ESP32-S3-DevKitC-1: ADC1 covers GPIO1-10.
-#define PIN_TACH        4   // Tachometer opto sensor pulse input (PCNT unit 0)
+#define PIN_TACH        4   // Spindle quadrature encoder A (PCNT unit 0)
+#define PIN_TACH_B      15  // Spindle quadrature encoder B
+#define PIN_TACH_INDEX  16  // Spindle encoder index (Z) pulse, rising edge
 #define PIN_PWM         5   // MCPWM0A output -> gate driver IN
 #define PIN_FAULT       6   // Current-limit comparator digital output -> MCPWM Fault0 (active-high)
 #define PIN_DIR         7   // Motor direction relay output
@@ -22,7 +24,9 @@
 // Classic ESP32 (DevKitC/WROOM-32 etc): GPIO6-11 are reserved for the
 // in-package flash, GPIO1/3 are UART0 TX/RX (Serial/flashing) - avoid both.
 // ADC1 (usable with WiFi active) is only on GPIO32-39.
-#define PIN_TACH        18  // Tachometer opto sensor pulse input (PCNT unit 0)
+#define PIN_TACH        18  // Spindle quadrature encoder A (PCNT unit 0)
+#define PIN_TACH_B      16  // Spindle quadrature encoder B
+#define PIN_TACH_INDEX  17  // Spindle encoder index (Z) pulse, rising edge
 #define PIN_PWM         19  // MCPWM0A output -> gate driver IN
 #define PIN_FAULT       21  // Current-limit comparator digital output -> MCPWM Fault0 (active-high)
 #define PIN_DIR         22  // Motor direction relay output
@@ -61,7 +65,7 @@ typedef struct {
     int max_rpm;
     int min_rpm;
     int max_duty; // percent
-    int enc_res;  // tach transitions per revolution
+    int enc_res;  // spindle quadrature encoder PPR (per channel); decoded x4 -> 4*PPR counts/rev
 } control_settings_t;
 
 control_settings_t control_get_settings();
@@ -81,12 +85,17 @@ typedef struct {
     bool direct_mode; // true = open-loop direct control, false = closed-loop PID
     float current_amps;
     float temperature_c;
-    int pulses_per_s;       // tach pulses/s, 100ms window
+    int pulses_per_s;       // encoder counts/s (after x4 decoding), 100ms window
     int task_load_percent;  // control-task CPU time as % of its 1ms period
+    int spindle_dir;        // +1 / -1 from quadrature, 0 = stopped
+    int index_count;        // index pulses seen since boot
+    int counts_per_index;   // measured counts between the last two index pulses (expect counts_per_rev)
+    int counts_per_rev;     // configured counts per spindle revolution
     float kp, ki, kd, ff;
 } control_status_t;
 
 control_status_t control_get_status();
 
-// Wrapping count of spindle tach pulses since boot; divide by enc_res for revolutions.
+// Wrapping count of spindle encoder counts since boot (direction ignored); divide by counts per rev for revolutions.
 uint32_t control_get_tach_total();
+int control_get_counts_per_rev();

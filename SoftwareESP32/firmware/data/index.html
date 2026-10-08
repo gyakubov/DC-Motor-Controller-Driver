@@ -119,7 +119,9 @@
   <section class="tab-panel hidden" data-panel="diag">
     <h2>Diagnostics</h2>
     <div class="diag-grid">
-      <div class="diag-card"><span>Encoder pulses/s</span><b id="diagPulses">0</b></div>
+      <div class="diag-card"><span>Encoder counts/s (x4)</span><b id="diagPulses">0</b></div>
+      <div class="diag-card"><span>Spindle encoder</span><b id="diagEnc">&mdash;</b></div>
+      <div class="diag-card"><span>Index (counts/rev)</span><b id="diagIndex">&mdash;</b></div>
       <div class="diag-card"><span>Measured current</span><b id="diagCurrent">0.0 A</b></div>
       <div class="diag-card"><span>MOSFET temp</span><b id="diagTemp">25.0 &deg;C</b></div>
       <div class="diag-card"><span>Control task load</span><b id="diagLoad">—</b></div>
@@ -213,7 +215,7 @@
       <label>Max RPM <input type="number" id="setMaxRpm" value="3000"></label>
       <label>Min RPM <input type="number" id="setMinRpm" value="50"></label>
       <label>Max Duty % <input type="number" id="setMaxDuty" value="90"></label>
-      <label>Encoder resolution <input type="number" id="setEncRes" value="96"></label>
+      <label>Spindle encoder PPR <input type="number" id="setEncRes" value="1000" min="1" max="10000"></label>
       <label>WiFi SSID <input type="text" id="setSsid" maxlength="32" placeholder="motor-controller"></label>
       <label>WiFi Password <input type="password" id="setPass" maxlength="63" placeholder="new password (8+ chars)"></label>
     </div>
@@ -222,6 +224,7 @@
       <button id="restartBtn" class="btn danger">Restart Controller</button>
     </div>
     <p class="fw-info" id="fwInfo">Firmware &mdash;</p>
+    <p class="fw-info">Spindle encoder is A/B quadrature, decoded x4: <b id="encCpr">4000</b> counts/rev.</p>
 
     <h3>DRO scales</h3>
     <div class="settings-grid">

@@ -189,7 +189,7 @@ static void on_ws_event(AsyncWebSocket *server, AsyncWebSocketClient *client,
 // Telemetry broadcast task - the only thing driving this is control_get_status(),
 // which is a quick mutex-protected read; this task never touches hardware.
 static void telemetry_task(void *arg) {
-    char buf[512];
+    char buf[640];
     int tick = 0;
     float last_dro[DRO_AXES] = {NAN, NAN};
     // Feed (mm of axis travel per spindle revolution) over a 500ms window.
@@ -211,7 +211,7 @@ static void telemetry_task(void *arg) {
         dro_state_t p = dro_get_state();
         if (millis() - win_ms >= 500) {
             uint32_t tach = control_get_tach_total();
-            float revs = (float)(uint32_t)(tach - win_tach) / control_get_settings().enc_res;
+            float revs = (float)(uint32_t)(tach - win_tach) / control_get_counts_per_rev();
             for (int a = 0; a < DRO_AXES; a++) {
                 feed[a] = revs >= 0.2f ? fabsf(p.raw_mm[a] - win_raw[a]) / revs : -1.0f;
                 win_raw[a] = p.raw_mm[a];
@@ -238,14 +238,16 @@ static void telemetry_task(void *arg) {
             "{\"type\":\"status\",\"rpm_target\":%d,\"rpm_actual\":%d,\"duty\":%d,"
             "\"running\":%s,\"stalled\":%s,\"current_limited\":%s,\"dir\":%s,\"direct_mode\":%s,"
             "\"current\":%.2f,\"temp\":%.1f,\"kp\":%.3f,\"ki\":%.3f,\"kd\":%.3f,\"ff\":%.3f,"
-            "\"pulses\":%d,\"load\":%d,\"heap\":%u,\"uptime\":%lu}",
+            "\"pulses\":%d,\"load\":%d,\"heap\":%u,\"uptime\":%lu,"
+            "\"sdir\":%d,\"idx\":%d,\"cpi\":%d,\"cpr\":%d}",
             s.rpm_target, s.rpm_actual, s.duty_percent,
             s.running ? "true" : "false", s.stalled ? "true" : "false",
             s.current_limited ? "true" : "false", s.direction_reverse ? "true" : "false",
             s.direct_mode ? "true" : "false",
             s.current_amps, s.temperature_c, s.kp, s.ki, s.kd, s.ff,
             s.pulses_per_s, s.task_load_percent, (unsigned)ESP.getFreeHeap(),
-            (unsigned long)(millis() / 1000));
+            (unsigned long)(millis() / 1000),
+            s.spindle_dir, s.index_count, s.counts_per_index, s.counts_per_rev);
         ws.textAll(buf);
         ws.cleanupClients();
     }

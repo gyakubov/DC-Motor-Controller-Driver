@@ -10,6 +10,8 @@ static void print_status() {
         s.current_limited, s.direction_reverse ? "rev" : "fwd", s.direct_mode ? "direct" : "pid");
     Serial.printf("current=%.2fA temp=%.1fC kp=%.3f ki=%.3f kd=%.3f ff=%.3f\n",
         s.current_amps, s.temperature_c, s.kp, s.ki, s.kd, s.ff);
+    Serial.printf("spindle: dir=%d counts/rev=%d index=%d counts/index=%d\n",
+        s.spindle_dir, s.counts_per_rev, s.index_count, s.counts_per_index);
 }
 
 static void print_help() {

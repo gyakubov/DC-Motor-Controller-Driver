@@ -11,10 +11,11 @@
 <!-- Persistent status bar -->
 <header id="statusBar">
   <span id="wsDot" class="dot offline"></span>
-  <span id="wsText">Disconnected (demo mode)</span>
+  <span id="wsText">Connecting...</span>
   <span id="modeBadge" class="mode-badge pid">PID CONTROL</span>
   <span id="uptime">Uptime 00:00:00</span>
   <div id="faultBanner" class="fault-banner hidden"></div>
+  <button id="clearFaultBtn" class="btn secondary clear-fault hidden">Clear fault</button>
 </header>
 
 <main>
@@ -118,7 +119,9 @@
   <section class="tab-panel hidden" data-panel="diag">
     <h2>Diagnostics</h2>
     <div class="diag-grid">
-      <div class="diag-card"><span>Encoder pulses/s</span><b id="diagPulses">0</b></div>
+      <div class="diag-card"><span>Encoder counts/s (x4)</span><b id="diagPulses">0</b></div>
+      <div class="diag-card"><span>Spindle encoder</span><b id="diagEnc">&mdash;</b></div>
+      <div class="diag-card"><span>Index (counts/rev)</span><b id="diagIndex">&mdash;</b></div>
       <div class="diag-card"><span>Measured current</span><b id="diagCurrent">0.0 A</b></div>
       <div class="diag-card"><span>MOSFET temp</span><b id="diagTemp">25.0 &deg;C</b></div>
       <div class="diag-card"><span>Control task load</span><b id="diagLoad">—</b></div>
@@ -134,11 +137,74 @@
 
     <h3>Event log</h3>
     <ul id="eventLog" class="event-log"></ul>
-    <h3>Demo fault simulation</h3>
-    <div class="demo-actions">
-      <button id="simStall" class="btn warn">Simulate Stall</button>
-      <button id="simCurrent" class="btn warn">Simulate Current-Limit</button>
-      <button id="simClear" class="btn secondary">Clear Faults</button>
+  </section>
+
+  <!-- DRO TAB -->
+  <section class="tab-panel hidden" data-panel="dro">
+    <div class="dro-grid">
+
+      <div class="dro-left">
+        <div class="dro-axis" data-axis="z">
+          <div class="dro-axis-name">Z</div>
+          <div class="dro-value" id="droZ">0.000</div>
+          <div class="dro-axis-side">
+            <span class="dro-unit">mm</span>
+            <button class="btn secondary dro-btn" data-dro="zero" data-axis="z">ZERO</button>
+            <button class="btn secondary dro-btn" data-dro="half" data-axis="z">&frac12;</button>
+            <button class="btn secondary dro-btn" data-dro="inc" data-axis="z">ABS</button>
+          </div>
+        </div>
+
+        <div class="dro-axis" data-axis="x">
+          <div class="dro-axis-name">X<small id="droXMode">DIA</small></div>
+          <div class="dro-value" id="droX">0.000</div>
+          <div class="dro-axis-side">
+            <span class="dro-unit">mm</span>
+            <button class="btn secondary dro-btn" data-dro="zero" data-axis="x">ZERO</button>
+            <button class="btn secondary dro-btn" data-dro="half" data-axis="x">&frac12;</button>
+            <button class="btn secondary dro-btn" data-dro="inc" data-axis="x">ABS</button>
+          </div>
+        </div>
+
+        <div class="dro-row">
+          <span class="dro-row-label">Work zero</span>
+          <div id="droWcs" class="dro-chips">
+            <button data-wcs="0">1</button><button data-wcs="1">2</button><button data-wcs="2">3</button>
+            <button data-wcs="3">4</button><button data-wcs="4">5</button><button data-wcs="5">6</button>
+          </div>
+        </div>
+        <div class="dro-row">
+          <span class="dro-row-label">Tool</span>
+          <div id="droTools" class="dro-chips">
+            <button data-tool="0">T1</button><button data-tool="1">T2</button><button data-tool="2">T3</button><button data-tool="3">T4</button>
+            <button data-tool="4">T5</button><button data-tool="5">T6</button><button data-tool="6">T7</button><button data-tool="7">T8</button>
+          </div>
+        </div>
+
+        <div class="dro-meta">
+          <span>Spindle: <b id="droRpm">0</b> rpm</span>
+          <span>Feed Z: <b id="droFeedZ">&mdash;</b> X: <b id="droFeedX">&mdash;</b> <span class="dro-feed-unit">mm/rev</span></span>
+          <span id="droToolOff">T1 offset Z 0.000 X 0.000</span>
+        </div>
+        <div class="dro-meta dro-meta-end">
+          <div id="droUnitToggle" class="segmented">
+            <button class="seg-btn active" data-unit="mm">mm</button>
+            <button class="seg-btn" data-unit="in">inch</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dro-pad">
+        <div id="droEntry" class="dro-entry">Tap Z or X to edit</div>
+        <div class="dro-keys">
+          <button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button><button data-key="back" class="alt">&#9003;</button>
+          <button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button><button data-key="clr" class="alt">CLR</button>
+          <button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button><button data-key="sign" class="alt">+/&minus;</button>
+          <button data-key="0" class="wide">0</button><button data-key=".">.</button><button data-key="set" class="enter">SET</button>
+          <button data-key="toolset" class="wide tool">TOOL SET</button><button data-key="toolclr" class="wide tool">TOOL CLR</button>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -149,15 +215,29 @@
       <label>Max RPM <input type="number" id="setMaxRpm" value="3000"></label>
       <label>Min RPM <input type="number" id="setMinRpm" value="50"></label>
       <label>Max Duty % <input type="number" id="setMaxDuty" value="90"></label>
-      <label>Encoder resolution <input type="number" id="setEncRes" value="96"></label>
-      <label>WiFi SSID <input type="text" id="setSsid" placeholder="shop-wifi"></label>
-      <label>WiFi Password <input type="password" id="setPass" placeholder="••••••••"></label>
+      <label>Spindle encoder PPR <input type="number" id="setEncRes" value="1000" min="1" max="10000"></label>
+      <label>WiFi SSID <input type="text" id="setSsid" maxlength="32" placeholder="motor-controller"></label>
+      <label>WiFi Password <input type="password" id="setPass" maxlength="63" placeholder="new password (8+ chars)"></label>
     </div>
     <div class="settings-actions">
       <button id="saveSettings" class="btn primary">Save Settings</button>
       <button id="restartBtn" class="btn danger">Restart Controller</button>
     </div>
-    <p class="fw-info">Firmware v0.1.0-mockup &middot; ESP32-S3</p>
+    <p class="fw-info" id="fwInfo">Firmware &mdash;</p>
+    <p class="fw-info">Spindle encoder is A/B quadrature, decoded x4: <b id="encCpr">4000</b> counts/rev.</p>
+
+    <h3>DRO scales</h3>
+    <div class="settings-grid">
+      <label>Z counts per mm <input type="number" id="setZcpm" value="800" min="1" step="any"></label>
+      <label>X counts per mm <input type="number" id="setXcpm" value="800" min="1" step="any"></label>
+      <label class="check"><input type="checkbox" id="setZinv"> Reverse Z direction</label>
+      <label class="check"><input type="checkbox" id="setXinv"> Reverse X direction</label>
+      <label class="check"><input type="checkbox" id="setXdia"> X reads diameter (2&times; travel)</label>
+    </div>
+    <p class="fw-info">Counts per mm = 4000 / scale resolution in &micro;m (5 &micro;m = 800, 1 &micro;m = 4000).</p>
+    <div class="settings-actions">
+      <button id="saveDro" class="btn primary">Save DRO Setup</button>
+    </div>
   </section>
 
 </main>
@@ -169,11 +249,13 @@
     <button class="tab-btn active" data-tab="run">Run</button>
     <button class="tab-btn" data-tab="tuning">Tuning</button>
     <button class="tab-btn" data-tab="diag">Diagnostics</button>
+    <button class="tab-btn" data-tab="dro">DRO</button>
     <button class="tab-btn" data-tab="settings">Settings</button>
   </nav>
   <button id="stopBtn" class="btn big stop">STOP</button>
 </footer>
 
+<script src="js/sim.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

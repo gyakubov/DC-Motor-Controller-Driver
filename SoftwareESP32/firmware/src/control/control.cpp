@@ -1,6 +1,7 @@
 #include "control.h"
 #include <Arduino.h>
 #include "driver/pcnt.h"
+#include "soc/pcnt_struct.h"
 #include "driver/mcpwm.h"
 #include "freertos/semphr.h"
 #include <Preferences.h>
@@ -10,7 +11,9 @@
 // encoder resolution) live in s_shared and are persisted in NVS.
 // ---------------------------------------------------------------------------
 static const int SAMPLE_HZ = 1000;                 // PID tick rate
-static const int DEFAULT_ENCODER_RESOLUTION = 96;   // tach transitions/rev
+static const int DEFAULT_ENCODER_RESOLUTION = 1000; // spindle encoder PPR
+static const double PID_REF_CPR = 96.0;             // PID gains are normalised to this counts/rev (the original tach)
+static const int16_t PCNT_LIMIT = 30000;            // hardware counter clears at +/-limit; deltas are unwrapped
 static const int DEFAULT_MAX_RPM = 3000;
 static const int DEFAULT_MIN_RPM = 50;
 static const int DEFAULT_MAX_DUTY = 90;
@@ -47,6 +50,9 @@ static struct {
     float temperature_c = 25;
     int pulses_per_s = 0;
     int task_load_percent = 0;
+    int spindle_dir = 0;
+    int index_count = 0;
+    int counts_per_index = 0;
 } s_shared;
 
 static Preferences s_prefs;
@@ -56,6 +62,21 @@ static Preferences s_prefs;
 // trip-zone before this ISR even runs.
 static volatile bool s_fault_isr_flag = false;
 static volatile uint32_t s_tach_total = 0;
+
+// Index pulse: latch the live PCNT value so the control task can place the
+// pulse exactly in the unwrapped count stream, not just to its 1ms tick.
+static volatile uint32_t s_index_events = 0;
+static volatile int16_t s_index_raw = 0;
+
+static void IRAM_ATTR index_isr(void *arg) {
+    // Direct register read: the driver's getter isn't IRAM-safe and the HAL helper is C-only.
+#if CONFIG_IDF_TARGET_ESP32S3
+    s_index_raw = (int16_t)PCNT.cnt_unit[0].pulse_cnt_un;
+#else
+    s_index_raw = (int16_t)PCNT.cnt_unit[0].cnt_val;
+#endif
+    s_index_events = s_index_events + 1;
+}
 
 static void IRAM_ATTR fault_isr(void *arg) {
     s_fault_isr_flag = true;
@@ -104,24 +125,49 @@ static void pid_reset(PidState &p) {
 // ---------------------------------------------------------------------------
 static void tach_pcnt_init() {
     pcnt_config_t cfg = {};
-    cfg.pulse_gpio_num = PIN_TACH;
-    cfg.ctrl_gpio_num = -1; // no control pin, count regardless of level
-    cfg.lctrl_mode = PCNT_MODE_KEEP;
-    cfg.hctrl_mode = PCNT_MODE_KEEP;
-    cfg.pos_mode = PCNT_COUNT_INC;  // count rising edges
-    cfg.neg_mode = PCNT_COUNT_DIS;
-    cfg.counter_h_lim = 30000;
-    cfg.counter_l_lim = -30000;
+    cfg.counter_h_lim = PCNT_LIMIT;
+    cfg.counter_l_lim = -PCNT_LIMIT;
     cfg.unit = PCNT_UNIT_0;
+
+    // Channel 0: edges on A, direction from B.
     cfg.channel = PCNT_CHANNEL_0;
+    cfg.pulse_gpio_num = PIN_TACH;
+    cfg.ctrl_gpio_num = PIN_TACH_B;
+    cfg.lctrl_mode = PCNT_MODE_KEEP;
+    cfg.hctrl_mode = PCNT_MODE_REVERSE;
+    cfg.pos_mode = PCNT_COUNT_INC;
+    cfg.neg_mode = PCNT_COUNT_DEC;
     pcnt_unit_config(&cfg);
 
-    pcnt_set_filter_value(PCNT_UNIT_0, 1000); // reject glitches shorter than ~12.5us @ 80MHz APB
+    // Channel 1: edges on B with the opposite sense (x4 decoding).
+    cfg.channel = PCNT_CHANNEL_1;
+    cfg.pulse_gpio_num = PIN_TACH_B;
+    cfg.ctrl_gpio_num = PIN_TACH;
+    cfg.lctrl_mode = PCNT_MODE_REVERSE;
+    cfg.hctrl_mode = PCNT_MODE_KEEP;
+    cfg.pos_mode = PCNT_COUNT_INC;
+    cfg.neg_mode = PCNT_COUNT_DEC;
+    pcnt_unit_config(&cfg);
+
+    // Quadrature edges can be a few microseconds apart at high speed.
+    pcnt_set_filter_value(PCNT_UNIT_0, 100);
     pcnt_filter_enable(PCNT_UNIT_0);
 
     pcnt_counter_pause(PCNT_UNIT_0);
     pcnt_counter_clear(PCNT_UNIT_0);
     pcnt_counter_resume(PCNT_UNIT_0);
+}
+
+static int counts_per_rev(int enc_res) {
+    return enc_res * 4; // x4 quadrature decoding
+}
+
+// Shortest signed distance between two readings of the self-clearing +/-PCNT_LIMIT counter.
+static int32_t unwrap_delta(int16_t now, int16_t last) {
+    int32_t d = (int32_t)now - last;
+    if (d > PCNT_LIMIT / 2) d -= PCNT_LIMIT;
+    else if (d < -PCNT_LIMIT / 2) d += PCNT_LIMIT;
+    return d;
 }
 
 static void pwm_mcpwm_init() {
@@ -197,16 +243,16 @@ static void control_task(void *arg) {
     long window_pulses = 0;
     uint32_t window_busy_us = 0;
     int reported_rpm = 0, reported_pulses_per_s = 0, reported_load = 0;
+    int reported_dir = 0, reported_counts_per_index = 0;
+    long window_signed = 0;
+    int16_t last_raw = 0;
+    int32_t spindle_total = 0, last_index_total = 0;
+    uint32_t seen_index_events = 0;
+    bool have_index = false;
 
     for (;;) {
         vTaskDelayUntil(&lastWake, period);
         uint32_t tick_start_us = micros();
-
-        int16_t raw_count = 0;
-        pcnt_get_counter_value(PCNT_UNIT_0, &raw_count);
-        pcnt_counter_clear(PCNT_UNIT_0);
-        int count_this_tick = raw_count;
-        if (raw_count > 0) s_tach_total += raw_count;
 
         // Snapshot commanded values.
         int rpm_target; bool running, direction_reverse, clear_fault_request, direct_mode;
@@ -227,6 +273,28 @@ static void control_task(void *arg) {
         s_shared.clear_fault_request = false;
         xSemaphoreGive(s_mutex);
 
+        const int cpr = counts_per_rev(enc_res);
+
+        // The counter free-runs (never cleared) so the index ISR and a future
+        // ELS can read it at any moment; per-tick travel is the unwrapped delta.
+        int16_t raw_now = 0;
+        pcnt_get_counter_value(PCNT_UNIT_0, &raw_now);
+        int32_t delta = unwrap_delta(raw_now, last_raw);
+
+        uint32_t index_events = s_index_events;
+        if (index_events != seen_index_events) {
+            int32_t index_total = spindle_total + unwrap_delta(s_index_raw, last_raw);
+            if (have_index) reported_counts_per_index = abs(index_total - last_index_total);
+            last_index_total = index_total;
+            have_index = true;
+            seen_index_events = index_events;
+        }
+
+        last_raw = raw_now;
+        spindle_total += delta;
+        int count_this_tick = abs(delta); // speed control uses magnitude; direction is reported separately
+        s_tach_total += count_this_tick;
+
         if (clear_fault_request) {
             stall_ticks = 0;
             s_fault_isr_flag = false;
@@ -238,7 +306,7 @@ static void control_task(void *arg) {
         // Instantaneous RPM estimate from this tick's pulse count. Coarse at
         // low speed/low encoder resolution - see design notes for the
         // period-measurement (M/T method) upgrade path.
-        int rpm_actual = (int)((long)count_this_tick * 60L * SAMPLE_HZ / enc_res);
+        int rpm_actual = (int)((long)count_this_tick * 60L * SAMPLE_HZ / cpr);
 
         bool hw_fault_latched = s_fault_isr_flag;
         bool overspeed = rpm_actual > (int)(max_rpm * OVERSPEED_MARGIN);
@@ -263,10 +331,14 @@ static void control_task(void *arg) {
                 raw = ((double)rpm_target / max_rpm) * max_duty;
                 pid_reset(s_pid);
             } else {
+                // Gains were tuned for the original 96-count tach, so work in
+                // counts normalised to that resolution; a finer encoder then
+                // sharpens the measurement without changing loop gain.
+                const double norm = PID_REF_CPR / (double)cpr;
                 double setpoint = (rpm_target >= min_rpm)
-                    ? (((double)rpm_target / 60.0) * enc_res) / SAMPLE_HZ
+                    ? (((double)rpm_target / 60.0) * PID_REF_CPR) / SAMPLE_HZ
                     : 0;
-                double error = setpoint - (double)count_this_tick;
+                double error = setpoint - (double)count_this_tick * norm;
                 raw = pid_compute(s_pid, kp, ki, kd, ff, setpoint, error, max_duty);
             }
             if (raw < 0) raw = 0;
@@ -303,16 +375,19 @@ static void control_task(void *arg) {
         float temperature_c = read_temperature_c();
         bool overtemp = temperature_c > 95.0f;
 
-        // Single-tick pulse counts are too coarse to display (1 pulse = 625 rpm
-        // at 96 PPR/1kHz), so report values averaged over a 100ms window.
+        // Single-tick counts are too coarse to display at low resolution, so
+        // report values averaged over a 100ms window.
         window_pulses += count_this_tick;
+        window_signed += delta;
         window_busy_us += micros() - tick_start_us;
         if (++window_ticks >= STATS_WINDOW_TICKS) {
             reported_pulses_per_s = (int)(window_pulses * SAMPLE_HZ / window_ticks);
-            reported_rpm = (int)((long)reported_pulses_per_s * 60L / enc_res);
+            reported_rpm = (int)((long)reported_pulses_per_s * 60L / cpr);
+            reported_dir = window_signed > 1 ? 1 : (window_signed < -1 ? -1 : 0);
             reported_load = (int)(window_busy_us / (window_ticks * (1000000UL / SAMPLE_HZ) / 100));
             window_ticks = 0;
             window_pulses = 0;
+            window_signed = 0;
             window_busy_us = 0;
         }
 
@@ -321,6 +396,9 @@ static void control_task(void *arg) {
         s_shared.rpm_actual = reported_rpm;
         s_shared.pulses_per_s = reported_pulses_per_s;
         s_shared.task_load_percent = reported_load;
+        s_shared.spindle_dir = reported_dir;
+        s_shared.index_count = (int)seen_index_events;
+        s_shared.counts_per_index = reported_counts_per_index;
         s_shared.duty_percent = (int)duty;
         s_shared.stalled = stalled;
         s_shared.current_limited = hw_fault_latched || overspeed || overtemp;
@@ -333,14 +411,14 @@ static void control_task(void *arg) {
 // ---------------------------------------------------------------------------
 // Public API
 // ---------------------------------------------------------------------------
-// A single tach pulse in one 1ms tick must stay below the overspeed trip
+// A single encoder count in one 1ms tick must stay below the overspeed trip
 // point, otherwise the coarse per-tick RPM estimate would false-trip.
 static bool settings_valid(const control_settings_t &s) {
     if (s.max_rpm < 100 || s.max_rpm > 20000) return false;
     if (s.min_rpm < 0 || s.min_rpm >= s.max_rpm) return false;
     if (s.max_duty < 10 || s.max_duty > 100) return false;
-    if (s.enc_res < 1 || s.enc_res > 2000) return false;
-    if (60L * SAMPLE_HZ / s.enc_res >= (long)(s.max_rpm * OVERSPEED_MARGIN)) return false;
+    if (s.enc_res < 1 || s.enc_res > 10000) return false;
+    if (60L * SAMPLE_HZ / counts_per_rev(s.enc_res) >= (long)(s.max_rpm * OVERSPEED_MARGIN)) return false;
     return true;
 }
 
@@ -373,6 +451,8 @@ void control_init() {
     analogReadResolution(12);
 
     tach_pcnt_init();
+    pinMode(PIN_TACH_INDEX, INPUT_PULLUP); // unconnected index stays high, no false pulses
+    attachInterruptArg(PIN_TACH_INDEX, index_isr, nullptr, RISING);
     pwm_mcpwm_init();
 
     xTaskCreatePinnedToCore(control_task, "control", 4096, NULL, 10, NULL, 1);
@@ -481,6 +561,13 @@ uint32_t control_get_tach_total() {
     return s_tach_total;
 }
 
+int control_get_counts_per_rev() {
+    xSemaphoreTake(s_mutex, portMAX_DELAY);
+    int cpr = counts_per_rev(s_shared.enc_res);
+    xSemaphoreGive(s_mutex);
+    return cpr;
+}
+
 control_status_t control_get_status() {
     control_status_t out;
     xSemaphoreTake(s_mutex, portMAX_DELAY);
@@ -496,6 +583,10 @@ control_status_t control_get_status() {
     out.temperature_c = s_shared.temperature_c;
     out.pulses_per_s = s_shared.pulses_per_s;
     out.task_load_percent = s_shared.task_load_percent;
+    out.spindle_dir = s_shared.spindle_dir;
+    out.index_count = s_shared.index_count;
+    out.counts_per_index = s_shared.counts_per_index;
+    out.counts_per_rev = counts_per_rev(s_shared.enc_res);
     out.kp = s_shared.kp; out.ki = s_shared.ki; out.kd = s_shared.kd; out.ff = s_shared.ff;
     xSemaphoreGive(s_mutex);
     return out;
